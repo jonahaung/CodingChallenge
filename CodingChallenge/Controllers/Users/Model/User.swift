@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import MapKit
 
 struct User: Decodable {
     
@@ -21,6 +22,7 @@ struct User: Decodable {
     let zipcode: String
     let lat: String
     let lng: String
+    
     let phone: String
     let website: String
     // company
@@ -74,5 +76,13 @@ struct User: Decodable {
         companyName = try companyContainer.decode(String.self, forKey: .name)
         catchPhrase = try companyContainer.decode(String.self, forKey: .catchPhrase)
         bs = try companyContainer.decode(String.self, forKey: .bs)
+    }
+}
+
+extension User {
+    
+    func getLocation() -> CLLocationCoordinate2D? {
+        guard let lattitude = Double(lat), let longitude = Double(lng) else { return nil }
+        return CLLocationCoordinate2D(latitude: lattitude, longitude: longitude)
     }
 }

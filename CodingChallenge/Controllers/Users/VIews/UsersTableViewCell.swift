@@ -8,9 +8,9 @@
 
 import UIKit
 
-final class MasterTableViewCell: UITableViewCell {
+final class UsersTableViewCell: UITableViewCell {
     
-    static let reuseIdentifier = "MasterTableViewCell"
+    static let reuseIdentifier = "UsersTableViewCell"
     
     private let titleLabel: UILabel = {
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -27,7 +27,7 @@ final class MasterTableViewCell: UITableViewCell {
     
     private let folderImageView: UIImageView = {
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.image = UIImage(systemName: "checkmark.seal.fill")
+        $0.image = UIImage(systemName: "building.fill")
         $0.tintColor = UIColor.tertiaryLabel
         return $0
     }(UIImageView())
@@ -40,7 +40,7 @@ final class MasterTableViewCell: UITableViewCell {
     }(UILabel())
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: .default, reuseIdentifier: MasterTableViewCell.reuseIdentifier)
+        super.init(style: .default, reuseIdentifier: UsersTableViewCell.reuseIdentifier)
         setup()
     }
     
@@ -80,7 +80,7 @@ final class MasterTableViewCell: UITableViewCell {
     
     func configure(_ user: User) {
         titleLabel.text = user.name
-        subtitleLabel.text = user.email
+        subtitleLabel.text = user.email.lowercased()
         folderNameLabel.text = user.companyName
     }
 }

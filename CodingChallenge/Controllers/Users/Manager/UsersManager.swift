@@ -8,13 +8,7 @@
 
 import UIKit
 
-protocol MasterManagerDelegate: class {
-    var tableView: UITableView { get }
-    func masterManagerDelegate(didSelectUser user: User)
-}
-
-
-final class MasterManager: NSObject {
+final class UsersManager: NSObject {
     
     private var users = [User]() {
         didSet {
@@ -22,7 +16,7 @@ final class MasterManager: NSObject {
         }
     }
     
-    weak var delegate: MasterManagerDelegate?
+    weak var delegate: UsersManagerDelegate?
     
     var tableView: UITableView? {
         return delegate?.tableView
@@ -34,7 +28,8 @@ final class MasterManager: NSObject {
     }
 }
 
-extension MasterManager {
+// Fetch Users From API
+extension UsersManager {
     
     private func getData(){
         guard let url = URL(string: "https://jsonplaceholder.typicode.com/users") else { return }
@@ -54,7 +49,9 @@ extension MasterManager {
     }
 }
 
-extension MasterManager: UITableViewDelegate, UITableViewDataSource {
+// TableView Datasource & Delegate
+
+extension UsersManager: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return users.count
@@ -62,18 +59,18 @@ extension MasterManager: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let user = users[indexPath.row]
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: MasterTableViewCell.reuseIdentifier, for: indexPath) as? MasterTableViewCell else { fatalError() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: UsersTableViewCell.reuseIdentifier, for: indexPath) as? UsersTableViewCell else { fatalError() }
         cell.configure(user)
         return cell
     }
     
     func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-        return "Users : \(users.count)"
+        return "Total : \(users.count) users"
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let user = users[indexPath.row]
-        delegate?.masterManagerDelegate(didSelectUser: user)
+        delegate?.usersManagerDelegate(didSelectUser: user)
     }
 }

@@ -8,17 +8,17 @@
 
 import UIKit
 
-class MasterViewController: UIViewController {
-    
-    lazy var manager = MasterManager()
+final class UsersViewController: UIViewController {
     
     let tableView: UITableView = {
         $0.estimatedRowHeight = 70
         $0.rowHeight = UITableView.automaticDimension
-        $0.register(MasterTableViewCell.self, forCellReuseIdentifier: MasterTableViewCell.reuseIdentifier)
+        $0.register(UsersTableViewCell.self, forCellReuseIdentifier: UsersTableViewCell.reuseIdentifier)
         $0.tableFooterView = UIView()
         return $0
     }(UITableView(frame: .zero, style: .insetGrouped))
+    
+    private lazy var manager = UsersManager()
     
     override func loadView() {
         view = tableView
@@ -32,10 +32,10 @@ class MasterViewController: UIViewController {
     }
 }
 
-extension MasterViewController {
+extension UsersViewController {
     
     private func setup() {
-        title = "Master"
+        title = "Users"
     }
     
     private func setupManager() {
@@ -45,15 +45,13 @@ extension MasterViewController {
     }
 }
 
-extension MasterViewController: MasterManagerDelegate {
+// Manager Delegate
+extension UsersViewController: UsersManagerDelegate {
     
-    func masterManagerDelegate(didSelectUser user: User) {
+    func usersManagerDelegate(didSelectUser user: User) {
         let x = UserViewController()
         x.user = user
         navigationController?.pushViewController(x, animated: true)
     }
-    
-    func notesDidChange() {
-        print("data change")
-    }
+
 }

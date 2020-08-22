@@ -20,6 +20,7 @@ extension NavigationController {
     
     private func setup(){
         navigationBar.prefersLargeTitles = true
+        
     }
 
 }
