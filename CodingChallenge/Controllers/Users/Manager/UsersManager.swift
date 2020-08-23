@@ -46,11 +46,18 @@ extension UsersManager {
                     }
                     //                    self.tableView?.endUpdates()
                     self.isLoadingList = false
+                    self.delegate?.usersManagerDelegate(didReloadData: self.users)
                 }
             } catch {
                 print(error)
             }
         }.resume()
+    }
+    
+    func reset() {
+        users.removeAll()
+        tableView?.reloadData()
+        getData()
     }
 }
 
@@ -78,6 +85,21 @@ extension UsersManager: UITableViewDelegate, UITableViewDataSource {
         let user = users[indexPath.row]
         delegate?.usersManagerDelegate(didSelectUser: user)
     }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+            return true
+        }
+
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+            switch editingStyle {
+            case .delete:
+                users.remove(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: .automatic)
+                delegate?.usersManagerDelegate(didReloadData: users)
+            default:
+                return
+            }
+        }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if (scrollView.contentOffset.y + scrollView.frame.size.height) > scrollView.contentSize.height && !isLoadingList {

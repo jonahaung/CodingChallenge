@@ -63,7 +63,7 @@ extension LoginViewController {
         loginTitleView.anchor(top: scrollView.topAnchor, paddingTop: 5, width: 250, height: 100)
         loginTitleView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor).isActive = true
         scrollView.addSubview(loginView)
-        loginView.anchor(top: loginTitleView.bottomAnchor, paddingTop: 15, left: scrollView.safeAreaLayoutGuide.leftAnchor, paddingLeft: 30, right: scrollView.safeAreaLayoutGuide.rightAnchor, paddingRight: 30)
+        loginView.anchor(top: loginTitleView.bottomAnchor, paddingTop: 15, left: scrollView.safeAreaLayoutGuide.leftAnchor, paddingLeft: 35, right: scrollView.safeAreaLayoutGuide.rightAnchor, paddingRight: 35)
 
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: loginView, action: #selector(loginView.reset))
 

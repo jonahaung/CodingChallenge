@@ -25,13 +25,12 @@ final class LoginView: UIStackView {
     let button: UIButton = {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.heightAnchor.constraint(equalToConstant: 44).isActive = true
-       
         $0.backgroundColor = UIColor.systemBlue
         let x = NSAttributedString(string: "Log In", attributes: [.foregroundColor: UIColor.systemBackground, .font: UIFont.preferredFont(forTextStyle: .title3)])
         $0.setAttributedTitle(x, for: .normal)
-        $0.layer.cornerRadius = 5
+        $0.layer.cornerRadius = 8
         return $0
-    }(UIButton(type: .custom))
+    }(UIButton(type: .system))
     
 
     private var currentTextField: LoginTextField?
@@ -46,7 +45,7 @@ final class LoginView: UIStackView {
     }
 
     private func setup() {
-        spacing = 25
+        spacing = 20
         axis = .vertical
         alignment = .fill
         distribution = .equalSpacing

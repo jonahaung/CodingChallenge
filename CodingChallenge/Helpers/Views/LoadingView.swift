@@ -60,7 +60,7 @@ func loading(_ show: Bool) {
 }
 
 
-func loading(_ show: Bool, delay: Double = 1, completion: @escaping () -> Void ) {
+func loading(_ show: Bool, delay: Double = 2, completion: @escaping () -> Void ) {
     
     if show {
         loadingView.show()

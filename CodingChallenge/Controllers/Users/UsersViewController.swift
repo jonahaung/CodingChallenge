@@ -9,15 +9,22 @@
 import UIKit
 
 final class UsersViewController: UIViewController {
+
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: true)
+        tableView.setEditing(editing, animated: true)
+    }
     
     internal let tableView: UITableView = {
         $0.estimatedRowHeight = 70
         $0.rowHeight = UITableView.automaticDimension
         $0.register(UsersTableViewCell.self, forCellReuseIdentifier: UsersTableViewCell.reuseIdentifier)
-        $0.tableFooterView = UIView()
         return $0
     }(UITableView(frame: .zero, style: .insetGrouped))
-    
+    private let footerLabel: UILabel = {
+        $0.textColor = .systemOrange
+        return $0
+    }(UILabel())
     private lazy var manager = UsersManager()
     
     override func loadView() {
@@ -36,8 +43,16 @@ extension UsersViewController {
     
     private func setup() {
         title = "Users"
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "LogOut", style: .plain, target: self, action: #selector(didTapLogout))
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didTapLeftBarButtonItem))
+        
+        navigationItem.rightBarButtonItem = editButtonItem
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(didTapLeftBarButtonItem))
+        navigationItem.leftBarButtonItem?.isEnabled = false
+        
+        let logout = UIBarButtonItem(title: "LogOut", style: .plain, target: self, action: #selector(didTapLogout))
+        navigationController?.setToolbarHidden(false, animated: true)
+        toolbarItems = [UIBarButtonItem(customView: footerLabel), UIBarButtonItem.flexible, logout]
+        
+        
     }
     
     private func setupManager() {
@@ -57,7 +72,8 @@ extension UsersViewController {
     }
     
     @objc private func didTapLeftBarButtonItem() {
-        
+        manager.reset()
+        navigationItem.leftBarButtonItem?.isEnabled = false
     }
 }
 
@@ -65,7 +81,12 @@ extension UsersViewController {
 extension UsersViewController: UsersManagerDelegate {
     
     func usersManagerDelegate(didReloadData users: [User]) {
-        title = users.count.description
+        let count = users.count
+        footerLabel.text = count.description
+        footerLabel.sizeToFit()
+        if count > 50 {
+            navigationItem.leftBarButtonItem?.isEnabled = true
+        }
     }
     
     
