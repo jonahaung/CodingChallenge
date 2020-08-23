@@ -33,7 +33,6 @@ final class LoginView: UIStackView, AlertPresenting {
     }(UIButton(type: .system))
     
     private let bottomLabel: ActionLabel = {
-        $0.textAlignment = .center
         $0.numberOfLines = 0
         $0.font = .preferredFont(forTextStyle: .footnote)
         $0.textColor = .tertiaryLabel

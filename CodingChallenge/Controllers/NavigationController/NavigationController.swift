@@ -10,7 +10,7 @@ import UIKit
   
 public class NavigationController: UINavigationController {
 
-    var isLoggedIn = false {
+    var isLoggedIn = true {
         didSet {
             guard oldValue != isLoggedIn else { return }
             let vcs = isLoggedIn ? [UsersViewController()] : [LoginViewController()]
@@ -22,7 +22,7 @@ public class NavigationController: UINavigationController {
     override public func viewDidLoad() {
         super.viewDidLoad()
         setup()
-        isLoggedIn = true
+        isLoggedIn = false
     }
 }
 
@@ -30,9 +30,8 @@ extension NavigationController {
     
     private func setup(){
         navigationBar.prefersLargeTitles = true
-        hidesBottomBarWhenPushed = true
-        
         toolbar.setShadowImage(UIImage(), forToolbarPosition: .any)
         toolbar.clipsToBounds = true
+        toolbar.isTranslucent = false
     }
 }

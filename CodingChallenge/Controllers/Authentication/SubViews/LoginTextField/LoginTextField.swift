@@ -22,6 +22,7 @@ final class LoginTextField: UIStackView {
         $0.font = UIFont.preferredFont(forTextStyle: .title3)
         $0.autocapitalizationType = .none
         $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.returnKeyType = .continue
         return $0
     }(UITextField())
     
@@ -113,8 +114,9 @@ extension LoginTextField {
         
         switch textFieldType {
         case .username:
-            textField.textContentType = .username
-            textField.placeholder = "username/email"
+            textField.textContentType = .emailAddress
+            textField.placeholder = "email address"
+            textField.keyboardType = .emailAddress
             setupRightIconView()
         case .password:
             textField.isSecureTextEntry = true
