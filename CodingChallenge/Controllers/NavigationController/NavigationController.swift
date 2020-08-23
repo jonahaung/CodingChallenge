@@ -10,12 +10,18 @@ import UIKit
   
 public class NavigationController: UINavigationController {
 
-    private var isLoggedIn = false
+    var isLoggedIn = false {
+        didSet {
+            guard oldValue != isLoggedIn else { return }
+            let vcs = isLoggedIn ? [UsersViewController()] : [LoginViewController()]
+            viewControllers = vcs
+        }
+    }
     
     override public func viewDidLoad() {
         super.viewDidLoad()
         setup()
-        viewControllers = isLoggedIn ? [UsersViewController()] : [LoginViewController()]
+        isLoggedIn = true
     }
 }
 

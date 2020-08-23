@@ -33,23 +33,7 @@ final class LoginView: UIStackView {
         return $0
     }(UIButton(type: .custom))
     
-    let button2: UIButton = {
-        $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        
-        let x = NSAttributedString(string: "Sign Up", attributes: [.foregroundColor: UIColor.secondaryLabel, .font: UIFont.preferredFont(forTextStyle: .subheadline)])
-        $0.setAttributedTitle(x, for: .normal)
-        return $0
-    }(UIButton(type: .custom))
-    
-    let button3: UIButton = {
-        $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        let x = NSAttributedString(string: "Forget Password", attributes: [.foregroundColor: UIColor.secondaryLabel, .font: UIFont.preferredFont(forTextStyle: .footnote)])
-        $0.setAttributedTitle(x, for: .normal)
-        return $0
-    }(UIButton(type: .custom))
-    
+
     private var currentTextField: LoginTextField?
     
     override init(frame: CGRect) {
@@ -67,20 +51,41 @@ final class LoginView: UIStackView {
         alignment = .fill
         distribution = .equalSpacing
         translatesAutoresizingMaskIntoConstraints = false
+        
+        let signUpLabel: ActionLabel = {
+            $0.textAlignment = .center
+            let attr = NSMutableAttributedString(string: "Are you a new user? ", attributes: [.foregroundColor: UIColor.secondaryLabel, .font: UIFont.preferredFont(forTextStyle: .footnote)])
+            attr.append(NSAttributedString(string: "sign up now!", attributes: [.foregroundColor: UIColor.systemBlue, .font: UIFont.preferredFont(forTextStyle: .footnote)]))
+            $0.attributedText = attr
+            $0.action { _ in
+                self.parentViewController?.navigationController?.pushViewController(SignUpViewController(), animated: true)
+            }
+            return $0
+        }(ActionLabel())
+        let forgetPasswordLabel: ActionLabel = {
+            $0.textAlignment = .center
+            let attr = NSMutableAttributedString(string: "Login problems? ", attributes: [.foregroundColor: UIColor.secondaryLabel, .font: UIFont.preferredFont(forTextStyle: .footnote)])
+            attr.append(NSAttributedString(string: "reset password", attributes: [.foregroundColor: UIColor.systemBlue, .font: UIFont.preferredFont(forTextStyle: .footnote)]))
+            $0.attributedText = attr
+            $0.action { _ in
+                self.parentViewController?.navigationController?.pushViewController(SignUpViewController(), animated: true)
+            }
+            return $0
+        }(ActionLabel())
+        
         addArrangedSubview(usernameTextField)
         addArrangedSubview(passwordTextField)
         addArrangedSubview(countryTextField)
         addArrangedSubview(button)
-        addArrangedSubview(button2)
-        addArrangedSubview(button3)
         addArrangedSubview(UIView())
+        addArrangedSubview(signUpLabel)
+        addArrangedSubview(forgetPasswordLabel)
+        
         usernameTextField.delegate = self
         passwordTextField.delegate = self
         countryTextField.delegate = self
         
         button.addTarget(self, action: #selector(didTapLoginButton), for: .touchUpInside)
-        button2.addTarget(self, action: #selector(didTapSignUpButton), for: .touchUpInside)
-        button3.addTarget(self, action: #selector(didTapForgetPasswordButton), for: .touchUpInside)
     }
     
     @objc func reset() {
@@ -107,13 +112,8 @@ extension LoginView {
     
     @objc private func didTapLoginButton() {
         UIImpactFeedbackGenerator(style: .light).impactOccurred()
-    }
-    
-    @objc private func didTapSignUpButton() {
-        UIImpactFeedbackGenerator(style: .light).impactOccurred()
-    }
-    
-    @objc private func didTapForgetPasswordButton() {
-        UIImpactFeedbackGenerator(style: .light).impactOccurred()
+        if let nav = parentViewController?.navigationController as? NavigationController {
+            nav.isLoggedIn.toggle()
+        }
     }
 }

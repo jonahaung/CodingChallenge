@@ -36,12 +36,20 @@ extension UsersViewController {
     
     private func setup() {
         title = "Users"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "LogOut", style: .plain, target: self, action: #selector(didTapLogout))
     }
     
     private func setupManager() {
         manager.delegate = self
         tableView.dataSource = manager
         tableView.delegate = manager
+    }
+    
+    @objc private func didTapLogout() {
+        UIImpactFeedbackGenerator(style: .light).impactOccurred()
+        if let nav = navigationController as? NavigationController {
+            nav.isLoggedIn.toggle()
+        }
     }
 }
 

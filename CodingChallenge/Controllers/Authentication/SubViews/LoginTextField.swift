@@ -213,9 +213,9 @@ extension LoginTextField {
             let flag = info.flag?.imageWithSize(size: CGSize(width: 30, height: 24), roundedRadius: 5)
             self.rightButton.setImage(flag, for: .normal)
         }
-        alert.addAction(title: "Cancel", style: .cancel)
+        
         alert.show()
-        UIImpactFeedbackGenerator(style: .light).impactOccurred()
+        
     }
     
     private func setFlag() {

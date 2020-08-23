@@ -20,9 +20,12 @@ extension UIAlertController {
         let vc = LocalePickerViewController() { new in
             info = new
             buttonSelect.isEnabled = new != nil
+            
         }
-        set(vc: vc)
         addAction(buttonSelect)
+        addAction(title: "Cancel", style: .cancel)
+        set(vc: vc)
+        
     }
 }
 
@@ -47,6 +50,7 @@ final class LocalePickerViewController: UIViewController {
         $0.hidesNavigationBarDuringPresentation = true
         $0.searchBar.searchBarStyle = .minimal
         $0.searchBar.searchTextField.clearButtonMode = .whileEditing
+        $0.dimsBackgroundDuringPresentation = false
         return $0
     }(UISearchController(searchResultsController: nil))
     
@@ -55,7 +59,8 @@ final class LocalePickerViewController: UIViewController {
         $0.delegate = self
         $0.estimatedRowHeight = 55
         $0.rowHeight = UITableView.automaticDimension
-        $0.separatorColor = UIColor.tertiarySystemFill
+//        $0.separatorColor = UIColor.tertiarySystemFill
+        $0.allowsSelectionDuringEditing = true
         $0.tableFooterView = UIView()
         return $0
     }(UITableView(frame: .zero, style: .insetGrouped))

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		473526F224F28F7D00A23580 /* ActionLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 473526F124F28F7D00A23580 /* ActionLabel.swift */; };
+		473526F424F28FED00A23580 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 473526F324F28FED00A23580 /* SignUpViewController.swift */; };
 		4767BDC424F1D33000DD6211 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4767BDC324F1D33000DD6211 /* LoginViewController.swift */; };
 		4796401424F204400013FB98 /* LocalePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4796401324F204400013FB98 /* LocalePickerViewController.swift */; };
 		4796401624F210FF0013FB98 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4796401524F210FF0013FB98 /* LoginView.swift */; };
@@ -58,6 +60,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		473526F124F28F7D00A23580 /* ActionLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionLabel.swift; sourceTree = "<group>"; };
+		473526F324F28FED00A23580 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		4767BDC324F1D33000DD6211 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		4767BDC724F1D84C00DD6211 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		4796401324F204400013FB98 /* LocalePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalePickerViewController.swift; sourceTree = "<group>"; };
@@ -128,9 +132,8 @@
 			isa = PBXGroup;
 			children = (
 				4767BDC324F1D33000DD6211 /* LoginViewController.swift */,
-				4796401524F210FF0013FB98 /* LoginView.swift */,
-				4796401924F21A280013FB98 /* LoginTextField.swift */,
-				4796401724F212E90013FB98 /* LoginTitleView.swift */,
+				473526F324F28FED00A23580 /* SignUpViewController.swift */,
+				4796401B24F281210013FB98 /* SubViews */,
 			);
 			path = Authentication;
 			sourceTree = "<group>";
@@ -142,6 +145,17 @@
 				4767BDC724F1D84C00DD6211 /* libsqlite3.0.tbd */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4796401B24F281210013FB98 /* SubViews */ = {
+			isa = PBXGroup;
+			children = (
+				4796401524F210FF0013FB98 /* LoginView.swift */,
+				4796401924F21A280013FB98 /* LoginTextField.swift */,
+				4796401724F212E90013FB98 /* LoginTitleView.swift */,
+				473526F124F28F7D00A23580 /* ActionLabel.swift */,
+			);
+			path = SubViews;
 			sourceTree = "<group>";
 		};
 		47AF554724F1DCEB0021A79B /* LocalePicker */ = {
@@ -479,10 +493,12 @@
 				47AFF89C24EF9414009D058B /* Extensions.swift in Sources */,
 				47AFF86724EF8CF5009D058B /* UsersViewController.swift in Sources */,
 				47AFF89724EF8F9D009D058B /* NavigationController.swift in Sources */,
+				473526F224F28F7D00A23580 /* ActionLabel.swift in Sources */,
 				47AF556924F1E1150021A79B /* UIApplication+Extensions.swift in Sources */,
 				47B1441024F13F2E00CAE7B0 /* User.swift in Sources */,
 				47AFF86324EF8CF5009D058B /* AppDelegate.swift in Sources */,
 				47AFF86524EF8CF5009D058B /* SceneDelegate.swift in Sources */,
+				473526F424F28FED00A23580 /* SignUpViewController.swift in Sources */,
 				47AFF8A024EF95B0009D058B /* UsersManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
