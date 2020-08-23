@@ -46,7 +46,7 @@ final class LoginView: UIStackView {
     }
 
     private func setup() {
-        spacing = 15
+        spacing = 25
         axis = .vertical
         alignment = .fill
         distribution = .equalSpacing
@@ -54,18 +54,19 @@ final class LoginView: UIStackView {
         
         let signUpLabel: ActionLabel = {
             $0.textAlignment = .center
-            let attr = NSMutableAttributedString(string: "Are you a new user? ", attributes: [.foregroundColor: UIColor.secondaryLabel, .font: UIFont.preferredFont(forTextStyle: .footnote)])
-            attr.append(NSAttributedString(string: "sign up now!", attributes: [.foregroundColor: UIColor.systemBlue, .font: UIFont.preferredFont(forTextStyle: .footnote)]))
+            let attr = NSMutableAttributedString(string: "Are you a new user? ", attributes: [.foregroundColor: UIColor.secondaryLabel, .font: UIFont.preferredFont(forTextStyle: .subheadline)])
+            attr.append(NSAttributedString(string: "sign up now!", attributes: [.foregroundColor: UIColor.systemBlue, .font: UIFont.preferredFont(forTextStyle: .subheadline)]))
             $0.attributedText = attr
             $0.action { _ in
                 self.parentViewController?.navigationController?.pushViewController(SignUpViewController(), animated: true)
             }
             return $0
         }(ActionLabel())
+        
         let forgetPasswordLabel: ActionLabel = {
             $0.textAlignment = .center
-            let attr = NSMutableAttributedString(string: "Login problems? ", attributes: [.foregroundColor: UIColor.secondaryLabel, .font: UIFont.preferredFont(forTextStyle: .footnote)])
-            attr.append(NSAttributedString(string: "reset password", attributes: [.foregroundColor: UIColor.systemBlue, .font: UIFont.preferredFont(forTextStyle: .footnote)]))
+            let attr = NSMutableAttributedString(string: "Login problems? ", attributes: [.foregroundColor: UIColor.secondaryLabel, .font: UIFont.preferredFont(forTextStyle: .subheadline)])
+            attr.append(NSAttributedString(string: "reset password", attributes: [.foregroundColor: UIColor.systemBlue, .font: UIFont.preferredFont(forTextStyle: .subheadline)]))
             $0.attributedText = attr
             $0.action { _ in
                 self.parentViewController?.navigationController?.pushViewController(SignUpViewController(), animated: true)
@@ -104,7 +105,6 @@ extension LoginView: LoginTextFieldDelegate {
     
     func loginTextField(textFieldShouldReturn textField: LoginTextField, type: LoginTextField.TextFieldType) {
         _ = currentTextField?.resignFirstResponder()
-        
     }
 }
 

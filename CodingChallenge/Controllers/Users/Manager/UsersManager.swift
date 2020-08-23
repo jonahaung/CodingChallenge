@@ -27,7 +27,7 @@ final class UsersManager: NSObject {
 // Fetch Users From API
 extension UsersManager {
     
-    func getData(){
+    private func getData(){
         isLoadingList = true
         guard let url = URL(string: "https://jsonplaceholder.typicode.com/users") else { return }
         URLSession.shared.dataTask(with: url) { [weak self] data, response, error in
@@ -36,7 +36,7 @@ extension UsersManager {
                 let users = try JSONDecoder().decode(Array<User>.self, from: data)
                 DispatchQueue.main.async {
                     guard let self = self else { return }
-//                    self.tableView?.beginUpdates()
+                    //                    self.tableView?.beginUpdates()
                     users.forEach {
                         self.users.append($0)
                         let row = self.users.count == 0 ? 0 : self.users.count - 1
@@ -44,7 +44,7 @@ extension UsersManager {
                         
                         self.tableView?.insertRows(at: [indexPath], with: .automatic)
                     }
-//                    self.tableView?.endUpdates()
+                    //                    self.tableView?.endUpdates()
                     self.isLoadingList = false
                 }
             } catch {

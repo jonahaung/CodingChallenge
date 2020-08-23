@@ -8,11 +8,6 @@
 
 import UIKit
 
-protocol LoginTextFieldDelegate: class {
-    func loginTextField(textFieldDidBeginEditing textField: LoginTextField,  type: LoginTextField.TextFieldType)
-    func loginTextField(textFieldShouldReturn textField: LoginTextField, type: LoginTextField.TextFieldType)
-}
-
 final class LoginTextField: UIStackView {
     
     enum TextFieldType {
@@ -21,24 +16,22 @@ final class LoginTextField: UIStackView {
     
     weak var delegate: LoginTextFieldDelegate?
     
+    // Views
     private let textField: UITextField = {
         $0.borderStyle = .none
         $0.font = UIFont.preferredFont(forTextStyle: .title3)
-        $0.adjustsFontSizeToFitWidth = true
         $0.autocapitalizationType = .none
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.heightAnchor.constraint(equalToConstant: 40).isActive = true
         return $0
     }(UITextField())
     
-    private let label: UILabel = {
+    private let label: ActionLabel = {
         $0.isHidden = true
         $0.font = UIFont.preferredFont(forTextStyle: .caption2)
-        $0.heightAnchor.constraint(equalToConstant: 12).isActive = true
         $0.textColor = UIColor.systemOrange
         $0.translatesAutoresizingMaskIntoConstraints = false
         return $0
-    }(UILabel())
+    }(ActionLabel())
     
     private let separater: UIView = {
         $0.backgroundColor = UIColor.separator
@@ -60,7 +53,10 @@ final class LoginTextField: UIStackView {
         return $0
     }(UIImageView(frame: CGRect(x: 0, y: 0, width: 25, height: 25)))
     
-    private var iconName: String? {
+    // Variables
+    private let textFieldType: TextFieldType
+    
+    private(set) var iconName: String? {
         didSet {
             guard oldValue != iconName else { return }
             guard let iconName = iconName else {
@@ -68,13 +64,13 @@ final class LoginTextField: UIStackView {
                 iconView.tintColor = nil
                 return
             }
-            self.iconView.image = UIImage(systemName: iconName)
+            iconView.image = UIImage(systemName: iconName)
             UIImpactFeedbackGenerator(style: .light).impactOccurred()
             animateIcon()
             
         }
     }
-    var labelText: String? {
+    private(set) var labelText: String? {
         didSet {
             guard oldValue != labelText else { return }
             label.text = labelText
@@ -85,7 +81,7 @@ final class LoginTextField: UIStackView {
         }
     }
     
-    private let textFieldType: TextFieldType
+    
     
     override func resignFirstResponder() -> Bool {
         return textField.resignFirstResponder()
@@ -94,9 +90,7 @@ final class LoginTextField: UIStackView {
         return textField.becomeFirstResponder()
     }
     
-    
-    
-    
+
     init(_ _textFieldType: TextFieldType) {
         textFieldType = _textFieldType
         super.init(frame: .zero)
@@ -106,20 +100,16 @@ final class LoginTextField: UIStackView {
     required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    fileprivate func setupRightIconView() {
-        let rightIconView = UIView(frame: CGRect(x: textField.frame.size.width - 30, y: 0, width: 30, height: 25))
-        rightIconView.addSubview(iconView)
-        textField.rightView = rightIconView
-        textField.rightViewMode = .always
-    }
-    
-   
+}
+
+// Setup
+extension LoginTextField {
     private func setup() {
         translatesAutoresizingMaskIntoConstraints = false
         axis = .vertical
         alignment = .fill
         distribution = .equalSpacing
+        spacing = 8
         
         switch textFieldType {
         case .username:
@@ -132,6 +122,7 @@ final class LoginTextField: UIStackView {
             textField.placeholder = "password"
             setupRightIconView()
         case .country:
+            textField.placeholder = "country"
             textField.textContentType = .countryName
             textField.returnKeyType = .done
             
@@ -146,8 +137,15 @@ final class LoginTextField: UIStackView {
         textField.delegate = self
     }
     
-    
+    fileprivate func setupRightIconView() {
+        let rightIconView = UIView(frame: CGRect(x: textField.frame.size.width - 30, y: 0, width: 30, height: 25))
+        rightIconView.addSubview(iconView)
+        textField.rightView = rightIconView
+        textField.rightViewMode = .always
+    }
 }
+
+// TextField Delegate
 
 extension LoginTextField: UITextFieldDelegate {
     
@@ -186,7 +184,6 @@ extension LoginTextField: UITextFieldDelegate {
     }
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         if textFieldType == .country {
-            
             didTapRightButton(nil)
             return false
         }
@@ -203,6 +200,7 @@ extension LoginTextField: UITextFieldDelegate {
 
 }
 
+// Methods
 extension LoginTextField {
     
     @objc private func didTapRightButton(_ sender: UIButton?) {
@@ -210,7 +208,7 @@ extension LoginTextField {
         alert.addLocalePicker() { info in
             guard let info = info else { return }
             self.textField.text = info.country
-            let flag = info.flag?.imageWithSize(size: CGSize(width: 30, height: 24), roundedRadius: 5)
+            let flag = info.flag?.imageWithSize(size: CGSize(width: 30, height: 30), roundedRadius: 15)
             self.rightButton.setImage(flag, for: .normal)
         }
         
@@ -220,7 +218,7 @@ extension LoginTextField {
     
     private func setFlag() {
         if textFieldType == .country, let countryName = textField.text, let regionCode = Locale.current.countryCode(from: countryName) {
-            let flag = UIImage(named: "Countries.bundle/Images/\(regionCode.uppercased())", in: Bundle.main, compatibleWith: nil)?.imageWithSize(size: CGSize(width: 30, height: 24), roundedRadius: 5)
+            let flag = UIImage(named: "Countries.bundle/Images/\(regionCode.uppercased())", in: Bundle.main, compatibleWith: nil)?.imageWithSize(size: CGSize(width: 30, height: 30), roundedRadius: 15)
             rightButton.setImage(flag, for: .normal)
         }
     }

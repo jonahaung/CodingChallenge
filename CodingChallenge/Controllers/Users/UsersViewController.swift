@@ -10,7 +10,7 @@ import UIKit
 
 final class UsersViewController: UIViewController {
     
-    let tableView: UITableView = {
+    internal let tableView: UITableView = {
         $0.estimatedRowHeight = 70
         $0.rowHeight = UITableView.automaticDimension
         $0.register(UsersTableViewCell.self, forCellReuseIdentifier: UsersTableViewCell.reuseIdentifier)
@@ -52,8 +52,9 @@ extension UsersViewController {
             nav.isLoggedIn.toggle()
         }
     }
+    
     @objc private func didTapLeftBarButtonItem() {
-        manager.getData()
+        
     }
 }
 

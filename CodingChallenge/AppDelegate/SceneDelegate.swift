@@ -18,9 +18,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Delete Storyboard and create UI programatically
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
-        
-        let navigationController = NavigationController()
-        window?.rootViewController = navigationController
+        window?.rootViewController = NavigationController()
         window?.makeKeyAndVisible()
     }
 

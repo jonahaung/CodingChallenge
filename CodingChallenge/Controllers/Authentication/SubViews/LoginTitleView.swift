@@ -25,7 +25,6 @@ final class LoginTitleView: UIView {
     }
     
     private func setup() {
-        backgroundColor = .systemYellow
         translatesAutoresizingMaskIntoConstraints = false
         addSubview(imageView)
     }

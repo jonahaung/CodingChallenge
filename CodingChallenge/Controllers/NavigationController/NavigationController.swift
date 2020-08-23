@@ -29,6 +29,9 @@ extension NavigationController {
     
     private func setup(){
         navigationBar.prefersLargeTitles = true
+        hidesBottomBarWhenPushed = true
         
+        toolbar.setShadowImage(UIImage(), forToolbarPosition: .any)
+        toolbar.clipsToBounds = true
     }
 }
