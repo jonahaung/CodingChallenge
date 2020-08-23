@@ -15,6 +15,7 @@ public class NavigationController: UINavigationController {
             guard oldValue != isLoggedIn else { return }
             let vcs = isLoggedIn ? [UsersViewController()] : [LoginViewController()]
             viewControllers = vcs
+            
         }
     }
     

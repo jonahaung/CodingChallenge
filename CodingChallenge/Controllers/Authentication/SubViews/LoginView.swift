@@ -111,9 +111,11 @@ extension LoginView: LoginTextFieldDelegate {
 extension LoginView {
     
     @objc private func didTapLoginButton() {
-        UIImpactFeedbackGenerator(style: .light).impactOccurred()
-        if let nav = parentViewController?.navigationController as? NavigationController {
-            nav.isLoggedIn.toggle()
+        if let nav = self.parentViewController?.navigationController as? NavigationController {
+            loading(true) {
+                loading(false)
+                nav.isLoggedIn.toggle()
+            }
         }
     }
 }

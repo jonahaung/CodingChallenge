@@ -49,7 +49,10 @@ extension UsersViewController {
     @objc private func didTapLogout() {
         UIImpactFeedbackGenerator(style: .light).impactOccurred()
         if let nav = navigationController as? NavigationController {
-            nav.isLoggedIn.toggle()
+            loading(true) {
+                loading(false)
+                nav.isLoggedIn.toggle()
+            }
         }
     }
     
