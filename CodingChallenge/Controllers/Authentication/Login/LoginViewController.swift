@@ -83,6 +83,8 @@ extension LoginViewController {
     }
     
     @objc private func didTapRightBarButtonItem(_ sender: UIBarButtonItem?) {
-        navigationController?.pushViewController(SignUpViewController(), animated: true)
+        let x = SignUpViewController()
+        x.modalPresentationStyle = .fullScreen
+        present(x, animated: true)
     }
 }

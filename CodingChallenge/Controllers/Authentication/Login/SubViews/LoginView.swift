@@ -24,9 +24,8 @@ final class LoginView: UIStackView, AlertPresenting {
     
     private let button: UIButton = {
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.heightAnchor.constraint(equalToConstant: 44).isActive = true
         $0.backgroundColor = UIColor.systemBlue
-        let x = NSAttributedString(string: "Log In", attributes: [.foregroundColor: UIColor.systemBackground, .font: UIFont.preferredFont(forTextStyle: .title3)])
+        let x = NSAttributedString(string: "Log In", attributes: [.foregroundColor: UIColor.systemBackground, .font: UIFont.systemFont(ofSize: 17, weight: .medium)])
         $0.setAttributedTitle(x, for: .normal)
         $0.layer.cornerRadius = 8
         return $0

@@ -11,7 +11,7 @@ import UIKit
 final class LoginTextField: UIStackView {
     
     enum TextFieldType {
-        case username, password, country
+        case username, password, country, none
     }
     
     weak var delegate: LoginTextFieldDelegate?
@@ -22,7 +22,7 @@ final class LoginTextField: UIStackView {
         $0.font = UIFont.preferredFont(forTextStyle: .title3)
         $0.autocapitalizationType = .none
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.returnKeyType = .continue
+        $0.returnKeyType = .go
         return $0
     }(UITextField())
     
@@ -131,6 +131,8 @@ extension LoginTextField {
             setCurrentCountry()
             textField.rightView = rightButton
             textField.rightViewMode = .always
+        case .none:
+            break
         }
         
         addArrangedSubview(label)
@@ -176,6 +178,8 @@ extension LoginTextField: UITextFieldDelegate {
         case .password:
             break
         case .country:
+            break
+        case .none:
             break
         }
     }

@@ -8,12 +8,19 @@
 
 import UIKit
 
-class SignUpViewController: UIViewController {
+class SignUpViewController: UINavigationController {
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemBackground
-        title = "Sign UP"
+        setup()
+    }
+    
+    private func setup() {
+        
+        setNavigationBarHidden(true, animated: false)
+        
+        let page1 = SignUpPage1()
+        viewControllers = [page1]
     }
 }
