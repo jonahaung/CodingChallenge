@@ -18,6 +18,7 @@
 		4735270B24F2A75400A23580 /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4735270A24F2A75400A23580 /* UIView+Extensions.swift */; };
 		4735270E24F2ADD500A23580 /* UIBarButtonItem+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4735270D24F2ADD500A23580 /* UIBarButtonItem+Extensions.swift */; };
 		4735271424F2C5D900A23580 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4735271324F2C5D900A23580 /* LoadingView.swift */; };
+		4735271624F2E31500A23580 /* AlertPresenting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4735271524F2E31500A23580 /* AlertPresenting.swift */; };
 		4767BDC424F1D33000DD6211 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4767BDC324F1D33000DD6211 /* LoginViewController.swift */; };
 		4796401424F204400013FB98 /* LocalePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4796401324F204400013FB98 /* LocalePickerViewController.swift */; };
 		4796401624F210FF0013FB98 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4796401524F210FF0013FB98 /* LoginView.swift */; };
@@ -73,6 +74,7 @@
 		4735270A24F2A75400A23580 /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
 		4735270D24F2ADD500A23580 /* UIBarButtonItem+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem+Extensions.swift"; sourceTree = "<group>"; };
 		4735271324F2C5D900A23580 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		4735271524F2E31500A23580 /* AlertPresenting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertPresenting.swift; sourceTree = "<group>"; };
 		4767BDC324F1D33000DD6211 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		4767BDC724F1D84C00DD6211 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		4796401324F204400013FB98 /* LocalePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalePickerViewController.swift; sourceTree = "<group>"; };
@@ -360,6 +362,7 @@
 			children = (
 				4735270C24F2A76600A23580 /* Views */,
 				473526FC24F2A67200A23580 /* Extensions */,
+				4735271524F2E31500A23580 /* AlertPresenting.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -520,6 +523,7 @@
 				47AFF86724EF8CF5009D058B /* UsersViewController.swift in Sources */,
 				47AFF89724EF8F9D009D058B /* NavigationController.swift in Sources */,
 				473526F924F2A57900A23580 /* LoginTextFieldDelegate.swift in Sources */,
+				4735271624F2E31500A23580 /* AlertPresenting.swift in Sources */,
 				4735270924F2A73900A23580 /* UIAlertController+Extensions.swift in Sources */,
 				473526F224F28F7D00A23580 /* ActionLabel.swift in Sources */,
 				47B1441024F13F2E00CAE7B0 /* User.swift in Sources */,

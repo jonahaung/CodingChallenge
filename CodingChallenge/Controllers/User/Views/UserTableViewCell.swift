@@ -23,5 +23,6 @@ final class UserTableViewCell: UITableViewCell {
     
     private func setup(){
         imageView?.tintColor = UIColor.systemOrange
+        selectionStyle = .none
     }
 }

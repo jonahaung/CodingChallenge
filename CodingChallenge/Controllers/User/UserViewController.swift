@@ -82,6 +82,8 @@ extension UserViewController {
         tableView.delegate = self
         
         tableView.tableHeaderView = mapView
+        
+        navigationController?.setToolbarHidden(true, animated: true)
     }
 }
 

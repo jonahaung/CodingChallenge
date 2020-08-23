@@ -37,22 +37,29 @@ final class UsersViewController: UIViewController {
         setup()
         setupManager()
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        let logout = UIBarButtonItem(title: "LogOut", style: .plain, target: self, action: #selector(didTapLogout))
+        
+        toolbarItems = [UIBarButtonItem(customView: footerLabel), UIBarButtonItem.flexible, logout]
+        navigationController?.setToolbarHidden(false, animated: true)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.setToolbarHidden(true, animated: true)
+    }
 }
 
 extension UsersViewController {
     
     private func setup() {
         title = "Users"
-        
+       
         navigationItem.rightBarButtonItem = editButtonItem
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(didTapLeftBarButtonItem))
         navigationItem.leftBarButtonItem?.isEnabled = false
-        
-        let logout = UIBarButtonItem(title: "LogOut", style: .plain, target: self, action: #selector(didTapLogout))
-        navigationController?.setToolbarHidden(false, animated: true)
-        toolbarItems = [UIBarButtonItem(customView: footerLabel), UIBarButtonItem.flexible, logout]
-        
-        
     }
     
     private func setupManager() {
@@ -66,7 +73,7 @@ extension UsersViewController {
         if let nav = navigationController as? NavigationController {
             loading(true) {
                 loading(false)
-                nav.isLoggedIn.toggle()
+                nav.isLoggedIn = false
             }
         }
     }
