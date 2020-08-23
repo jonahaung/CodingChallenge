@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class UserViewController: UIViewController {
+final class UserViewController: UIViewController {
     
     var user: User?
     
@@ -44,6 +44,9 @@ class UserViewController: UIViewController {
     override func viewWillLayoutSubviews() {
         mapView.frame.size = CGSize(width: view.bounds.width, height: view.bounds.height/2)
         super.viewWillLayoutSubviews()
+    }
+    deinit {
+        print("Deinit: UserViewController")
     }
 }
 
@@ -133,5 +136,6 @@ extension UserViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         return "User ID: " + (user?.id.description ?? "")
     }
+    
 }
 

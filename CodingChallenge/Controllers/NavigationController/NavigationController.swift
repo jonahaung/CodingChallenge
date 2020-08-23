@@ -10,9 +10,12 @@ import UIKit
   
 public class NavigationController: UINavigationController {
 
+    private var isLoggedIn = false
+    
     override public func viewDidLoad() {
         super.viewDidLoad()
         setup()
+        viewControllers = isLoggedIn ? [UsersViewController()] : [LoginViewController()]
     }
 }
 
@@ -22,5 +25,4 @@ extension NavigationController {
         navigationBar.prefersLargeTitles = true
         
     }
-
 }

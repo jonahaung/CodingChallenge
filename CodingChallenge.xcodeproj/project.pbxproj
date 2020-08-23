@@ -7,6 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4767BDC424F1D33000DD6211 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4767BDC324F1D33000DD6211 /* LoginViewController.swift */; };
+		4796401424F204400013FB98 /* LocalePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4796401324F204400013FB98 /* LocalePickerViewController.swift */; };
+		4796401624F210FF0013FB98 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4796401524F210FF0013FB98 /* LoginView.swift */; };
+		4796401824F212E90013FB98 /* LoginTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4796401724F212E90013FB98 /* LoginTitleView.swift */; };
+		4796401A24F21A280013FB98 /* LoginTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4796401924F21A280013FB98 /* LoginTextField.swift */; };
+		47AF554424F1D89E0021A79B /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 47AF554324F1D8970021A79B /* libsqlite3.tbd */; };
+		47AF556324F1E0280021A79B /* UIAlertController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47AF556224F1E0280021A79B /* UIAlertController+Extensions.swift */; };
+		47AF556524F1E08A0021A79B /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47AF556424F1E0890021A79B /* UIView+Extensions.swift */; };
+		47AF556724F1E0F50021A79B /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47AF556624F1E0F50021A79B /* UIViewController+Extensions.swift */; };
+		47AF556924F1E1150021A79B /* UIApplication+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47AF556824F1E1150021A79B /* UIApplication+Extensions.swift */; };
+		47AF556B24F1E17E0021A79B /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47AF556A24F1E17E0021A79B /* UIImage+Extensions.swift */; };
+		47AF557D24F1EA020021A79B /* CountryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47AF557824F1EA010021A79B /* CountryTableViewCell.swift */; };
+		47AF557E24F1EA020021A79B /* LocaleInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47AF557C24F1EA020021A79B /* LocaleInfo.swift */; };
+		47AF557F24F1EA020021A79B /* LocaleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47AF557A24F1EA010021A79B /* LocaleManager.swift */; };
+		47AF558024F1EB2B0021A79B /* Countries.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 47AF557624F1EA010021A79B /* Countries.bundle */; };
 		47AFF86324EF8CF5009D058B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47AFF86224EF8CF5009D058B /* AppDelegate.swift */; };
 		47AFF86524EF8CF5009D058B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47AFF86424EF8CF5009D058B /* SceneDelegate.swift */; };
 		47AFF86724EF8CF5009D058B /* UsersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47AFF86624EF8CF5009D058B /* UsersViewController.swift */; };
@@ -43,6 +58,22 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4767BDC324F1D33000DD6211 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		4767BDC724F1D84C00DD6211 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
+		4796401324F204400013FB98 /* LocalePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalePickerViewController.swift; sourceTree = "<group>"; };
+		4796401524F210FF0013FB98 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		4796401724F212E90013FB98 /* LoginTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginTitleView.swift; sourceTree = "<group>"; };
+		4796401924F21A280013FB98 /* LoginTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginTextField.swift; sourceTree = "<group>"; };
+		47AF554324F1D8970021A79B /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		47AF556224F1E0280021A79B /* UIAlertController+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIAlertController+Extensions.swift"; path = "../../../../Downloads/alerts-and-pickers-new/Source/Extensions/UIAlertController+Extensions.swift"; sourceTree = "<group>"; };
+		47AF556424F1E0890021A79B /* UIView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIView+Extensions.swift"; path = "../../../../Downloads/alerts-and-pickers-new/Source/Extensions/UIView+Extensions.swift"; sourceTree = "<group>"; };
+		47AF556624F1E0F50021A79B /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIViewController+Extensions.swift"; path = "../../../../Downloads/alerts-and-pickers-new/Source/Extensions/UIViewController+Extensions.swift"; sourceTree = "<group>"; };
+		47AF556824F1E1150021A79B /* UIApplication+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIApplication+Extensions.swift"; path = "../../../../Downloads/alerts-and-pickers-new/Source/Extensions/UIApplication+Extensions.swift"; sourceTree = "<group>"; };
+		47AF556A24F1E17E0021A79B /* UIImage+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIImage+Extensions.swift"; path = "../../../../Downloads/alerts-and-pickers-new/Source/Extensions/UIImage+Extensions.swift"; sourceTree = "<group>"; };
+		47AF557624F1EA010021A79B /* Countries.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Countries.bundle; sourceTree = "<group>"; };
+		47AF557824F1EA010021A79B /* CountryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryTableViewCell.swift; sourceTree = "<group>"; };
+		47AF557A24F1EA010021A79B /* LocaleManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocaleManager.swift; sourceTree = "<group>"; };
+		47AF557C24F1EA020021A79B /* LocaleInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocaleInfo.swift; sourceTree = "<group>"; };
 		47AFF85F24EF8CF5009D058B /* CodingChallenge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CodingChallenge.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		47AFF86224EF8CF5009D058B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		47AFF86424EF8CF5009D058B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -72,6 +103,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				47AF554424F1D89E0021A79B /* libsqlite3.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -92,6 +124,62 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4767BDC524F1D7C300DD6211 /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				4767BDC324F1D33000DD6211 /* LoginViewController.swift */,
+				4796401524F210FF0013FB98 /* LoginView.swift */,
+				4796401924F21A280013FB98 /* LoginTextField.swift */,
+				4796401724F212E90013FB98 /* LoginTitleView.swift */,
+			);
+			path = Authentication;
+			sourceTree = "<group>";
+		};
+		4767BDC624F1D84C00DD6211 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				47AF554324F1D8970021A79B /* libsqlite3.tbd */,
+				4767BDC724F1D84C00DD6211 /* libsqlite3.0.tbd */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		47AF554724F1DCEB0021A79B /* LocalePicker */ = {
+			isa = PBXGroup;
+			children = (
+				47AF557924F1EA010021A79B /* Managers */,
+				47AF557B24F1EA010021A79B /* Models */,
+				47AF557724F1EA010021A79B /* Views */,
+				47AF557624F1EA010021A79B /* Countries.bundle */,
+				4796401324F204400013FB98 /* LocalePickerViewController.swift */,
+			);
+			path = LocalePicker;
+			sourceTree = "<group>";
+		};
+		47AF557724F1EA010021A79B /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				47AF557824F1EA010021A79B /* CountryTableViewCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		47AF557924F1EA010021A79B /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				47AF557A24F1EA010021A79B /* LocaleManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		47AF557B24F1EA010021A79B /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				47AF557C24F1EA020021A79B /* LocaleInfo.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		47AFF85624EF8CF5009D058B = {
 			isa = PBXGroup;
 			children = (
@@ -99,6 +187,7 @@
 				47AFF87824EF8CF6009D058B /* CodingChallengeTests */,
 				47AFF88324EF8CF6009D058B /* CodingChallengeUITests */,
 				47AFF86024EF8CF5009D058B /* Products */,
+				4767BDC624F1D84C00DD6211 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -159,6 +248,8 @@
 				47AFF89824EF9256009D058B /* Users */,
 				47F7311E24F17A610027B41C /* User */,
 				47B1440E24F13BDD00CAE7B0 /* NavigationController */,
+				4767BDC524F1D7C300DD6211 /* Authentication */,
+				47AF554724F1DCEB0021A79B /* LocalePicker */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -219,6 +310,11 @@
 		47F7311F24F17A820027B41C /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				47AF556A24F1E17E0021A79B /* UIImage+Extensions.swift */,
+				47AF556824F1E1150021A79B /* UIApplication+Extensions.swift */,
+				47AF556624F1E0F50021A79B /* UIViewController+Extensions.swift */,
+				47AF556224F1E0280021A79B /* UIAlertController+Extensions.swift */,
+				47AF556424F1E0890021A79B /* UIView+Extensions.swift */,
 				47AFF89B24EF9414009D058B /* Extensions.swift */,
 			);
 			path = Helpers;
@@ -295,7 +391,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1160;
-				LastUpgradeCheck = 1160;
+				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = "Aung Ko Min";
 				TargetAttributes = {
 					47AFF85E24EF8CF5009D058B = {
@@ -336,6 +432,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				47AF558024F1EB2B0021A79B /* Countries.bundle in Resources */,
 				47AFF89324EF8F4A009D058B /* Main.storyboard in Resources */,
 				47AFF86F24EF8CF6009D058B /* LaunchScreen.storyboard in Resources */,
 				47AFF86C24EF8CF6009D058B /* Assets.xcassets in Resources */,
@@ -363,13 +460,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				47AF556724F1E0F50021A79B /* UIViewController+Extensions.swift in Sources */,
+				4796401824F212E90013FB98 /* LoginTitleView.swift in Sources */,
+				47AF557F24F1EA020021A79B /* LocaleManager.swift in Sources */,
+				47AF556B24F1E17E0021A79B /* UIImage+Extensions.swift in Sources */,
+				47AF556524F1E08A0021A79B /* UIView+Extensions.swift in Sources */,
+				47AF557D24F1EA020021A79B /* CountryTableViewCell.swift in Sources */,
+				4767BDC424F1D33000DD6211 /* LoginViewController.swift in Sources */,
 				47AFF89A24EF926A009D058B /* UsersTableViewCell.swift in Sources */,
 				47F7311D24F17A120027B41C /* UsersManagerDelegate.swift in Sources */,
+				4796401A24F21A280013FB98 /* LoginTextField.swift in Sources */,
+				4796401624F210FF0013FB98 /* LoginView.swift in Sources */,
+				47AF557E24F1EA020021A79B /* LocaleInfo.swift in Sources */,
 				47F7312124F186BE0027B41C /* UserTableViewCell.swift in Sources */,
 				47B1441224F14EFA00CAE7B0 /* UserViewController.swift in Sources */,
+				4796401424F204400013FB98 /* LocalePickerViewController.swift in Sources */,
+				47AF556324F1E0280021A79B /* UIAlertController+Extensions.swift in Sources */,
 				47AFF89C24EF9414009D058B /* Extensions.swift in Sources */,
 				47AFF86724EF8CF5009D058B /* UsersViewController.swift in Sources */,
 				47AFF89724EF8F9D009D058B /* NavigationController.swift in Sources */,
+				47AF556924F1E1150021A79B /* UIApplication+Extensions.swift in Sources */,
 				47B1441024F13F2E00CAE7B0 /* User.swift in Sources */,
 				47AFF86324EF8CF5009D058B /* AppDelegate.swift in Sources */,
 				47AFF86524EF8CF5009D058B /* SceneDelegate.swift in Sources */,
@@ -446,6 +556,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -506,6 +617,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
