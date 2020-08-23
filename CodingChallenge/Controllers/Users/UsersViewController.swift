@@ -37,6 +37,7 @@ extension UsersViewController {
     private func setup() {
         title = "Users"
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "LogOut", style: .plain, target: self, action: #selector(didTapLogout))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didTapLeftBarButtonItem))
     }
     
     private func setupManager() {
@@ -51,10 +52,18 @@ extension UsersViewController {
             nav.isLoggedIn.toggle()
         }
     }
+    @objc private func didTapLeftBarButtonItem() {
+        manager.getData()
+    }
 }
 
 // Manager Delegate
 extension UsersViewController: UsersManagerDelegate {
+    
+    func usersManagerDelegate(didReloadData users: [User]) {
+        title = users.count.description
+    }
+    
     
     func usersManagerDelegate(didSelectUser user: User) {
         let x = UserViewController()

@@ -11,4 +11,5 @@ import UIKit
 protocol UsersManagerDelegate: class {
     var tableView: UITableView { get }
     func usersManagerDelegate(didSelectUser user: User)
+    func usersManagerDelegate(didReloadData users: [User])
 }

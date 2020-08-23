@@ -10,14 +10,10 @@ import UIKit
 
 final class UsersManager: NSObject {
     
-    private var users = [User]() {
-        didSet {
-            tableView?.reloadData()
-        }
-    }
+    private var users = [User]()
     
     weak var delegate: UsersManagerDelegate?
-    
+    private var isLoadingList = false
     var tableView: UITableView? {
         return delegate?.tableView
     }
@@ -31,19 +27,28 @@ final class UsersManager: NSObject {
 // Fetch Users From API
 extension UsersManager {
     
-    private func getData(){
+    func getData(){
+        isLoadingList = true
         guard let url = URL(string: "https://jsonplaceholder.typicode.com/users") else { return }
         URLSession.shared.dataTask(with: url) { [weak self] data, response, error in
-            if let data = data {
-                print(data)
-                do {
-                    let users = try JSONDecoder().decode(Array<User>.self, from: data   )
-                    DispatchQueue.main.async {
-                        self?.users = users
+            guard let data = data else { return }
+            do {
+                let users = try JSONDecoder().decode(Array<User>.self, from: data)
+                DispatchQueue.main.async {
+                    guard let self = self else { return }
+//                    self.tableView?.beginUpdates()
+                    users.forEach {
+                        self.users.append($0)
+                        let row = self.users.count == 0 ? 0 : self.users.count - 1
+                        let indexPath = IndexPath(row: row, section: 0)
+                        
+                        self.tableView?.insertRows(at: [indexPath], with: .automatic)
                     }
-                } catch {
-                    print(error)
+//                    self.tableView?.endUpdates()
+                    self.isLoadingList = false
                 }
+            } catch {
+                print(error)
             }
         }.resume()
     }
@@ -72,5 +77,12 @@ extension UsersManager: UITableViewDelegate, UITableViewDataSource {
         tableView.deselectRow(at: indexPath, animated: true)
         let user = users[indexPath.row]
         delegate?.usersManagerDelegate(didSelectUser: user)
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if (scrollView.contentOffset.y + scrollView.frame.size.height) > scrollView.contentSize.height && !isLoadingList {
+            UIImpactFeedbackGenerator(style: .light).impactOccurred()
+            getData()
+        }
     }
 }

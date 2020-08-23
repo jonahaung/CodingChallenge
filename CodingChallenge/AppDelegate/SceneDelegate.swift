@@ -11,7 +11,8 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-
+    
+    static let delegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Delete Storyboard and create UI programatically
