@@ -70,12 +70,7 @@ extension UsersViewController {
     
     @objc private func didTapLogout() {
         UIImpactFeedbackGenerator(style: .light).impactOccurred()
-        if let nav = navigationController as? NavigationController {
-            loading(true) {
-                loading(false)
-                nav.isLoggedIn = false
-            }
-        }
+        AuthManager.shared.signOut()
     }
     
     @objc private func didTapLeftBarButtonItem() {

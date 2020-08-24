@@ -12,7 +12,7 @@ final class SignUpPage2: SignUpPage {
     
     let textField: LoginTextField = {
         $0.textField.textContentType = .name
-        $0.textField.placeholder = "your full name"
+        $0.textField.placeholder = "Enter your full name"
         $0.textField.autocapitalizationType = .words
         $0.textField.returnKeyType = .go
         return $0
@@ -41,7 +41,11 @@ final class SignUpPage2: SignUpPage {
     }
     
     override func didTapButton(_ sender: UIButton?) {
-        navigationController?.pushViewController(SignUpPage3(), animated: true)
+        var loginUser = LoginUser()
+        loginUser.name = textField.textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        let page3 = SignUpPage3()
+        page3.loginUser = loginUser
+        navigationController?.pushViewController(page3, animated: true)
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -72,8 +76,14 @@ extension SignUpPage2: UITextFieldDelegate {
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        guard textField.hasText else { return false }
         textField.resignFirstResponder()
-        navigationController?.pushViewController(SignUpPage3(), animated: true)
+        didTapButton(nil)
+        return true
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        self.textField.textField.rightImageName = string + ".circle.fill"
         return true
     }
 }

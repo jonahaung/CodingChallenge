@@ -11,35 +11,24 @@ import UIKit
 final class LoginTextField: UIStackView {
     
     enum TextFieldType {
-        case username, password, country, none
+        case email, password, country, none
     }
     
     weak var delegate: LoginTextFieldDelegate?
     
     // Views
-    let textField: UITextField = {
-        $0.borderStyle = .none
-        $0.font = UIFont.preferredFont(forTextStyle: .title3)
-        $0.autocapitalizationType = .none
-        $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.returnKeyType = .go
-        return $0
-    }(UITextField())
+    let textField = PaddedTextField()
     
     private let label: ActionLabel = {
         $0.isHidden = true
         $0.font = UIFont.preferredFont(forTextStyle: .caption2)
         $0.textColor = UIColor.systemOrange
         $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.textAlignment = .center
         return $0
     }(ActionLabel())
     
-    private let separater: UIView = {
-        $0.backgroundColor = UIColor.separator
-        $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.heightAnchor.constraint(equalToConstant: 1).isActive = true
-        return $0
-    }(UIView())
+    private let separater = SeparaterView()
     
     lazy var rightButton: UIButton = {
         let size: CGFloat = 25.0
@@ -49,28 +38,12 @@ final class LoginTextField: UIStackView {
         return $0
     }(UIButton(type: .custom))
     
-    private let iconView: UIImageView = {
-        $0.contentMode = .scaleAspectFit
-        return $0
-    }(UIImageView(frame: CGRect(x: 0, y: 0, width: 25, height: 25)))
+    
     
     // Variables
     private let textFieldType: TextFieldType
     
-    private(set) var iconName: String? {
-        didSet {
-            guard oldValue != iconName else { return }
-            guard let iconName = iconName else {
-                iconView.image = nil
-                iconView.tintColor = nil
-                return
-            }
-            iconView.image = UIImage(systemName: iconName)
-            UIImpactFeedbackGenerator(style: .light).impactOccurred()
-            animateIcon()
-            
-        }
-    }
+    
     private(set) var labelText: String? {
         didSet {
             guard oldValue != labelText else { return }
@@ -113,21 +86,17 @@ extension LoginTextField {
         spacing = 8
         
         switch textFieldType {
-        case .username:
+        case .email:
             textField.textContentType = .emailAddress
             textField.placeholder = "email address"
             textField.keyboardType = .emailAddress
-            setupRightIconView()
         case .password:
             textField.isSecureTextEntry = true
             textField.textContentType = .password
             textField.placeholder = "password"
-            setupRightIconView()
         case .country:
             textField.placeholder = "country"
             textField.textContentType = .countryName
-            textField.returnKeyType = .done
-            
             setCurrentCountry()
             textField.rightView = rightButton
             textField.rightViewMode = .always
@@ -140,13 +109,6 @@ extension LoginTextField {
         addArrangedSubview(separater)
         textField.delegate = self
     }
-    
-    fileprivate func setupRightIconView() {
-        let rightIconView = UIView(frame: CGRect(x: textField.frame.size.width - 30, y: 0, width: 30, height: 25))
-        rightIconView.addSubview(iconView)
-        textField.rightView = rightIconView
-        textField.rightViewMode = .always
-    }
 }
 
 // TextField Delegate
@@ -155,33 +117,26 @@ extension LoginTextField: UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         labelText = nil
+        self.textField.rightImageName = nil
         delegate?.loginTextField(textFieldDidBeginEditing: self, type: textFieldType)
         
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         
-        if textField.text?.isEmpty == true || textField.text == nil {
-            labelText = "this field shouldn't be empty"
-        } else {
-            labelText = nil
-        }
         switch textFieldType {
-        case .username:
-            if textField.hasText == true {
-                iconName = "checkmark.shield.fill"
-                iconView.tintColor = .systemGreen
-            } else {
-                iconName = "exclamationmark.circle.fill"
-                iconView.tintColor = .systemRed
-            }
+        case .email:
+            let isValid = textField.text?.isValidEmail() == true
+            self.textField.isValid = isValid
+            labelText = isValid ? nil : "invalid email"
         case .password:
-            break
-        case .country:
-            break
-        case .none:
+            let isValid = textField.text?.isValidPassword() == true
+            self.textField.isValid = isValid
+            labelText = isValid ? nil : "password is too short"
+        default:
             break
         }
+        
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -197,10 +152,7 @@ extension LoginTextField: UITextFieldDelegate {
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        if textFieldType == .password {
-            iconName = string + ".circle.fill"
-        }
-        
+        self.textField.rightImageName = string + ".circle.fill"
         return string != " "
     }
 
@@ -229,18 +181,7 @@ extension LoginTextField {
         }
     }
     
-    private func animateIcon() {
-        UIView.animate(withDuration: 0.4, delay: 0.1, usingSpringWithDamping: 7, initialSpringVelocity: 7, options: .beginFromCurrentState) {
-            self.iconView.transform = CGAffineTransform(scaleX: 0.6, y: 0.6)
-        } completion: { _ in
-            
-            UIView.animate(withDuration: 0.2) {
-                self.iconView.transform = CGAffineTransform(rotationAngle: 90)
-            } completion: { _ in
-                self.iconView.transform = .identity
-            }
-        }
-    }
+    
     
     fileprivate func setCurrentCountry() {
         guard textFieldType == .country else { return }
@@ -254,7 +195,7 @@ extension LoginTextField {
     
     func reset() {
         UIImpactFeedbackGenerator(style: .light).impactOccurred()
-        iconName = nil
+        textField.rightImageName = nil
         labelText = nil
         textField.text = nil
         setCurrentCountry()

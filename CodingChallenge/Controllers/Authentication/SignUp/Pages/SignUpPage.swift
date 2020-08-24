@@ -15,6 +15,7 @@ class SignUpPage: UIViewController {
     }
     
     
+    
     let stackView: UIStackView = {
         $0.spacing = 25
         $0.axis = .vertical
@@ -40,11 +41,13 @@ class SignUpPage: UIViewController {
         $0.numberOfLines = 0
         return $0
     }(UILabel())
+    
     let bottomLabel: ActionLabel = {
-        $0.font = UIFont.preferredFont(forTextStyle: .footnote)
-        $0.textColor = .systemBlue
+        $0.font = UIFont.preferredFont(forTextStyle: .subheadline)
+        $0.textColor = .link
         $0.textAlignment = .center
         $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.text = "Already have an account?"
         return $0
     }(ActionLabel())
     
@@ -66,12 +69,12 @@ class SignUpPage: UIViewController {
         view.addSubview(stackView)
         stackView.anchor(top: view.safeAreaLayoutGuide.topAnchor, paddingTop: 110, left: view.safeAreaLayoutGuide.leftAnchor, paddingLeft: 30, right: view.safeAreaLayoutGuide.rightAnchor, paddingRight: 30, height: 0)
         
-        bottomLabel.text = "Already have an account?"
         view.addSubview(bottomLabel)
-        bottomLabel.anchor(bottom: view.safeAreaLayoutGuide.bottomAnchor, paddingBottom: 50, left: view.safeAreaLayoutGuide.leftAnchor, right: view.safeAreaLayoutGuide.rightAnchor)
+        bottomLabel.anchor(bottom: view.safeAreaLayoutGuide.bottomAnchor, paddingBottom: 25)
+        bottomLabel.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
         
         bottomLabel.action { _ in
-            self.dismiss(animated: true, completion: nil)
+            self.navigationController?.dismiss(animated: true, completion: nil)
         }
         button.addTarget(self, action: #selector(didTapButton(_:)), for: .touchUpInside)
     }

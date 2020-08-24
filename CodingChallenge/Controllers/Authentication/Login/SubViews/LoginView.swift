@@ -10,9 +10,9 @@ import UIKit
 
 final class LoginView: UIStackView, AlertPresenting {
     
-    let usernameTextField: LoginTextField = {
+    let emailTextInputView: LoginTextField = {
         return $0
-    }(LoginTextField(.username))
+    }(LoginTextField(.email))
     
     let passwordTextField: LoginTextField = {
         return $0
@@ -61,14 +61,14 @@ final class LoginView: UIStackView, AlertPresenting {
         
         
         
-        addArrangedSubview(usernameTextField)
+        addArrangedSubview(emailTextInputView)
         addArrangedSubview(passwordTextField)
         addArrangedSubview(countryTextField)
         addArrangedSubview(button)
         addArrangedSubview(UIView())
         addArrangedSubview(bottomLabel)
         
-        usernameTextField.delegate = self
+        emailTextInputView.delegate = self
         passwordTextField.delegate = self
         countryTextField.delegate = self
         
@@ -83,7 +83,7 @@ final class LoginView: UIStackView, AlertPresenting {
     
     @objc func reset() {
         currentTextField = nil
-        usernameTextField.reset()
+        emailTextInputView.reset()
         passwordTextField.reset()
         countryTextField.reset()
     }
@@ -104,15 +104,10 @@ extension LoginView {
     
     @objc private func didTapLoginButton() {
         _ = currentTextField?.resignFirstResponder()
-        guard let userName = usernameTextField.textField.text, !userName.isEmpty, let password = passwordTextField.textField.text, !password.isEmpty, let country = countryTextField.textField.text, !country.isEmpty else {
+        guard let email = emailTextInputView.textField.text, !email.isEmpty, let password = passwordTextField.textField.text, !password.isEmpty, let country = countryTextField.textField.text, !country.isEmpty else {
             showAlert(title: "Login Error", message: "make sure all fields are not empty")
             return
         }
-        if let nav = self.parentViewController?.navigationController as? NavigationController {
-            loading(true) {
-                loading(false)
-                nav.isLoggedIn.toggle()
-            }
-        }
+        AuthManager.shared.signIn(with: email, password: password)
     }
 }

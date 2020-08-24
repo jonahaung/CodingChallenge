@@ -10,11 +10,13 @@ import UIKit
 
 final class SignUpPage3: SignUpPage {
     
+    var loginUser: LoginUser?
+    
     let textField: LoginTextField = {
         $0.textField.textContentType = .emailAddress
         $0.textField.placeholder = "Enter your email address"
         $0.textField.autocapitalizationType = .none
-        
+        $0.textField.keyboardType = .emailAddress
         return $0
     }(LoginTextField(.none))
     
@@ -22,7 +24,7 @@ final class SignUpPage3: SignUpPage {
         super.setup()
         
         titleLabel.text = "What is your email address?"
-        detailLabel.text = "You'll use this email address when you log in and if you ever need to reset your password."
+        detailLabel.text = "You will use this email address when you log in and if you ever need to reset your password."
         setButtonTitle(string: "Next")
         
         stackView.addArrangedSubview(titleLabel)
@@ -33,6 +35,7 @@ final class SignUpPage3: SignUpPage {
         textField.textField.delegate = self
         
         button.isHidden = true
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -41,7 +44,11 @@ final class SignUpPage3: SignUpPage {
     }
     
     override func didTapButton(_ sender: UIButton?) {
-        navigationController?.pushViewController(SignUpPage4(), animated: true)
+        _ = textField.resignFirstResponder()
+        loginUser?.email = self.textField.textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        let page4 = SignUpPage4()
+        page4.loginUser = loginUser
+        navigationController?.pushViewController(page4, animated: true)
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -73,8 +80,13 @@ extension SignUpPage3: UITextFieldDelegate {
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        navigationController?.pushViewController(SignUpPage4(), animated: true)
+        guard textField.hasText else { return false }
+        didTapButton(nil)
+        return true
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        self.textField.textField.isValid = textField.text?.isValidEmail() == true
         return true
     }
 }

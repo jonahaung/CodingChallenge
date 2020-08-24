@@ -11,6 +11,7 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
+    var navigationController: NavigationController?
     
     static let delegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate
 
@@ -18,7 +19,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Delete Storyboard and create UI programatically
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
-        window?.rootViewController = NavigationController()
+        navigationController = NavigationController()
+        window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
     }
 
