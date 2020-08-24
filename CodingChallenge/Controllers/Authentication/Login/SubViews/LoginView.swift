@@ -10,17 +10,17 @@ import UIKit
 
 final class LoginView: UIStackView, AlertPresenting {
     
-    let emailTextInputView: LoginTextField = {
+    let emailTextInputView: TextFieldContainerView = {
         return $0
-    }(LoginTextField(.email))
+    }(TextFieldContainerView(.email))
     
-    let passwordTextField: LoginTextField = {
+    let passwordInputView: TextFieldContainerView = {
         return $0
-    }(LoginTextField(.password))
+    }(TextFieldContainerView(.password))
     
-    let countryTextField: LoginTextField = {
+    let countryTextField: TextFieldContainerView = {
         return $0
-    }(LoginTextField(.country))
+    }(TextFieldContainerView(.country))
     
     private let button: UIButton = {
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -41,7 +41,7 @@ final class LoginView: UIStackView, AlertPresenting {
     }(ActionLabel())
     
 
-    private var currentTextField: LoginTextField?
+    private var currentTextField: TextFieldContainerView?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -59,55 +59,70 @@ final class LoginView: UIStackView, AlertPresenting {
         distribution = .equalSpacing
         translatesAutoresizingMaskIntoConstraints = false
         
-        
-        
         addArrangedSubview(emailTextInputView)
-        addArrangedSubview(passwordTextField)
+        addArrangedSubview(passwordInputView)
         addArrangedSubview(countryTextField)
         addArrangedSubview(button)
         addArrangedSubview(UIView())
         addArrangedSubview(bottomLabel)
         
         emailTextInputView.delegate = self
-        passwordTextField.delegate = self
+        passwordInputView.delegate = self
         countryTextField.delegate = self
         
         button.addTarget(self, action: #selector(didTapLoginButton), for: .touchUpInside)
-        
-        bottomLabel.action { _ in
-            if let url = URL(string: "https://github.com/jonahaung/CodingChallenge") {
-                UIApplication.shared.open(url)
-            }
-        }
+    
     }
     
     @objc func reset() {
         currentTextField = nil
         emailTextInputView.reset()
-        passwordTextField.reset()
+        passwordInputView.reset()
         countryTextField.reset()
     }
 }
 
-extension LoginView: LoginTextFieldDelegate {
+extension LoginView: TextFieldContainerViewDelegate {
     
-    func loginTextField(textFieldDidBeginEditing textField: LoginTextField, type: LoginTextField.TextFieldType) {
+    func textFieldContainerViewDelegate(textFieldDidBeginEditing textField: TextFieldContainerView, type: TextFieldContainerView.TextFieldType) {
         currentTextField = textField
     }
     
-    func loginTextField(textFieldShouldReturn textField: LoginTextField, type: LoginTextField.TextFieldType) {
+    func textFieldContainerViewDelegate(textFieldShouldReturn textField: TextFieldContainerView, type: TextFieldContainerView.TextFieldType) {
         _ = currentTextField?.resignFirstResponder()
     }
 }
 
 extension LoginView {
     
+    // login
     @objc private func didTapLoginButton() {
         _ = currentTextField?.resignFirstResponder()
-        guard let email = emailTextInputView.textField.text, !email.isEmpty, let password = passwordTextField.textField.text, !password.isEmpty, let country = countryTextField.textField.text, !country.isEmpty else {
-            showAlert(title: "Login Error", message: "make sure all fields are not empty")
+        guard let email = emailTextInputView.textField.text?.trimmed, !email.isEmpty else {
+            emailTextInputView.labelText = "Email address is empty"
             return
         }
-        AuthManager.shared.signIn(with: email, password: password)
+        
+        guard email.isValidEmail() else {
+            emailTextInputView.labelText = "Email is not valid"
+            return
+        }
+        
+        guard let password = passwordInputView.textField.text?.trimmed, !password.isEmpty else {
+            passwordInputView.labelText = "Password is empty"
+            return
+        }
+        
+        guard var user = DBHelper.shared.getUser(email: email, password: password) else {
+            showAlert(title: "Error", message: "Email or password does not match")
+            return
+        }
+        
+        user.courntry = countryTextField.textField.text ?? ""
+        DBHelper.shared.updateUser(user: user)
+        loading(true, delay: 0.5) {
+            loading(false)
+            AuthManager.shared.signIn(with: user)
+        }
     }
 }

@@ -93,11 +93,6 @@ extension UIView {
             heightAnchor.constraint(equalToConstant: height).isActive = true
         }
     }
-    
-    func showAlert(title: String?, message: String?) {
-        let x = UIAlertController(style: .actionSheet, title: title, message: message)
-        x.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
-        x.show()
-    }
+
 }
 

@@ -9,11 +9,10 @@
 import Foundation
 
 struct LoginUser {
-    
-    var name = ""
     var email = ""
     var password = ""
-    
+    var name = ""
+    var courntry = ""
 }
 
 extension LoginUser: Equatable {

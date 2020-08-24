@@ -12,13 +12,13 @@ final class SignUpPage3: SignUpPage {
     
     var loginUser: LoginUser?
     
-    let textField: LoginTextField = {
+    let textFieldContainerView: TextFieldContainerView = {
         $0.textField.textContentType = .emailAddress
         $0.textField.placeholder = "Enter your email address"
         $0.textField.autocapitalizationType = .none
         $0.textField.keyboardType = .emailAddress
         return $0
-    }(LoginTextField(.none))
+    }(TextFieldContainerView(.none))
     
     override func setup() {
         super.setup()
@@ -28,65 +28,79 @@ final class SignUpPage3: SignUpPage {
         setButtonTitle(string: "Next")
         
         stackView.addArrangedSubview(titleLabel)
-        stackView.addArrangedSubview(textField)
+        stackView.addArrangedSubview(textFieldContainerView)
         stackView.addArrangedSubview(detailLabel)
         stackView.addArrangedSubview(button)
         
-        textField.textField.delegate = self
+        textFieldContainerView.textField.delegate = self
         
         button.isHidden = true
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        _ = textField.becomeFirstResponder()
+        _ = textFieldContainerView.becomeFirstResponder()
     }
     
     override func didTapButton(_ sender: UIButton?) {
-        _ = textField.resignFirstResponder()
-        loginUser?.email = self.textField.textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        _ = textFieldContainerView.resignFirstResponder()
+        
+        guard let email = textFieldContainerView.textField.text?.trimmed else {
+            self.textFieldContainerView.labelText = "Email shouldn't be empty"
+            self.textFieldContainerView.textField.isValid = false
+            return
+        }
+        
+        let isValid = email.isValidEmail()
+        
+        guard isValid else {
+            self.textFieldContainerView.labelText = "Email address is not valid"
+            self.textFieldContainerView.textField.isValid = false
+            return
+        }
+        
+        if DBHelper.shared.isEmailExisted(for: email) {
+            self.textFieldContainerView.labelText = "Email has already registered"
+            self.textFieldContainerView.textField.isValid = false
+            return
+        }
+        
+        loginUser?.email = email
         let page4 = SignUpPage4()
         page4.loginUser = loginUser
         navigationController?.pushViewController(page4, animated: true)
     }
-
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        _ = textField.resignFirstResponder()
+        super.touchesBegan(touches, with: event)
+        _ = textFieldContainerView.resignFirstResponder()
     }
-
+    
 }
+
+// TextField Delegate
 
 extension SignUpPage3: UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        UIView.animate(withDuration: 0.25) {
-            self.button.alpha = 0.0
-            self.detailLabel.isHidden = false
-        } completion: { _ in
-            self.button.isHidden = true
-            self.button.alpha = 1
-        }
+        hideButton()
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        UIView.animate(withDuration: 0.3) {
-            self.detailLabel.isHidden = true
-        } completion: { _ in
-            UIView.animate(withDuration: 0.1) {
-                self.button.isHidden = false
-            }
-        }
+        showButton()
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        guard textField.hasText else { return false }
         didTapButton(nil)
         return true
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        self.textField.textField.isValid = textField.text?.isValidEmail() == true
+        
+        if let text = textField.text, let textRange = Range(range, in: text) {
+            let updatedText = text.replacingCharacters(in: textRange, with: string)
+            self.textFieldContainerView.textField.isValid = updatedText.isValidEmail()
+        }
         return true
     }
 }

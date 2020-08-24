@@ -8,14 +8,12 @@
 
 import UIKit
 
-class SignUpPage: UIViewController {
+class SignUpPage: UIViewController, AlertPresenting {
     
     override var prefersStatusBarHidden: Bool {
         return true
     }
-    
-    
-    
+
     let stackView: UIStackView = {
         $0.spacing = 25
         $0.axis = .vertical
@@ -53,9 +51,8 @@ class SignUpPage: UIViewController {
     
     let button: UIButton = {
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.backgroundColor = UIColor.systemBlue
-        
-        $0.layer.cornerRadius = 8
+        $0.backgroundColor = UIColor.link
+        $0.layer.cornerRadius = 6
         return $0
     }(UIButton(type: .system))
     
@@ -64,8 +61,10 @@ class SignUpPage: UIViewController {
         setup()
     }
     
+    // setup
     func setup() {
         view.backgroundColor = .systemBackground
+        
         view.addSubview(stackView)
         stackView.anchor(top: view.safeAreaLayoutGuide.topAnchor, paddingTop: 110, left: view.safeAreaLayoutGuide.leftAnchor, paddingLeft: 30, right: view.safeAreaLayoutGuide.rightAnchor, paddingRight: 30, height: 0)
         
@@ -85,6 +84,27 @@ class SignUpPage: UIViewController {
     }
     
     @objc func didTapButton(_ sender: UIButton?) {
+        
+    }
+    
+    func hideButton(){
+        UIView.animate(withDuration: 0.25) {
+            self.button.alpha = 0.0
+            self.detailLabel.isHidden = false
+        } completion: { _ in
+            self.button.isHidden = true
+            self.button.alpha = 1
+        }
+    }
+    
+    func showButton() {
+        UIView.animate(withDuration: 0.3) {
+            self.detailLabel.isHidden = true
+        } completion: { _ in
+            UIView.animate(withDuration: 0.1) {
+                self.button.isHidden = false
+            }
+        }
         
     }
 }

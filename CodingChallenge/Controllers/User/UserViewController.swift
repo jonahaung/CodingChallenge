@@ -14,9 +14,9 @@ final class UserViewController: UIViewController {
     var user: User?
     
     let mapView: MKMapView = {
-        $0.layer.borderColor = UIColor.systemYellow.cgColor
+        $0.layer.borderColor = UIColor.systemBackground.cgColor
         $0.layer.borderWidth = 1
-        $0.layer.cornerRadius = 8
+        $0.mapType = .standard
         return $0
     }(MKMapView())
     

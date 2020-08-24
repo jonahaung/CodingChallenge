@@ -59,6 +59,7 @@ class PaddedTextField: UITextField {
             rightImageView.tintColor = isValid ? UIColor.systemGreen : .systemRed
         }
     }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         borderStyle = .none
@@ -66,7 +67,6 @@ class PaddedTextField: UITextField {
         autocapitalizationType = .none
         translatesAutoresizingMaskIntoConstraints = false
         returnKeyType = .go
-        
     
         rightView = rightImageView
         rightViewMode = .always

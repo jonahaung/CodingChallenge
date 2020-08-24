@@ -23,7 +23,7 @@ final class CountryTableViewCell: UITableViewCell {
     // MARK: Configure Selection
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        accessoryView = selected ? UIImageView(image: UIImage(systemName: "circle.fill")) : nil
+        accessoryView = selected ? UIImageView(image: UIImage(systemName: "checkmark.circle.fill")) : nil
     }
     
     func configure(_ info: LocaleInfo) {

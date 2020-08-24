@@ -25,9 +25,9 @@ final class UsersTableViewCell: UITableViewCell {
         return $0
     }(UILabel())
     
-    private let folderImageView: UIImageView = {
+    private let iconImageView: UIImageView = {
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.image = UIImage(systemName: "building.fill")
+        $0.image = UIImage(systemName: "building.2.fill")
         $0.tintColor = UIColor.tertiaryLabel
         return $0
     }(UIImageView())
@@ -48,7 +48,7 @@ final class UsersTableViewCell: UITableViewCell {
         backgroundColor = nil
         contentView.addSubview(titleLabel)
         contentView.addSubview(subtitleLabel)
-        contentView.addSubview(folderImageView)
+        contentView.addSubview(iconImageView)
         contentView.addSubview(folderNameLabel)
         
         let padding = UIEdgeInsets(top: 10, left: 25, bottom: -10, right: -25)
@@ -62,14 +62,14 @@ final class UsersTableViewCell: UITableViewCell {
             subtitleLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: padding.right),
             subtitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 3),
             
-            folderImageView.topAnchor.constraint(equalTo: subtitleLabel.bottomAnchor, constant: 3),
-            folderImageView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: padding.left),
-            folderImageView.widthAnchor.constraint(equalToConstant: 18),
-            folderImageView.heightAnchor.constraint(equalToConstant: 18),
-            folderImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: padding.bottom),
+            iconImageView.topAnchor.constraint(equalTo: subtitleLabel.bottomAnchor, constant: 3),
+            iconImageView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: padding.left),
+            iconImageView.widthAnchor.constraint(equalToConstant: 18),
+            iconImageView.heightAnchor.constraint(equalToConstant: 18),
+            iconImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: padding.bottom),
             
-            folderNameLabel.leftAnchor.constraint(equalTo: folderImageView.rightAnchor, constant: 3),
-            folderNameLabel.centerYAnchor.constraint(equalTo: folderImageView.centerYAnchor)
+            folderNameLabel.leftAnchor.constraint(equalTo: iconImageView.rightAnchor, constant: 3),
+            folderNameLabel.centerYAnchor.constraint(equalTo: iconImageView.centerYAnchor)
         ])
         accessoryType = .disclosureIndicator
         

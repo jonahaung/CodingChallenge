@@ -22,7 +22,8 @@ final class UserTableViewCell: UITableViewCell {
     }
     
     private func setup(){
-        imageView?.tintColor = UIColor.systemOrange
+        imageView?.tintColor = UIColor.secondaryLabel
+        imageView?.preferredSymbolConfiguration = UIImage.SymbolConfiguration(weight: .semibold)
         selectionStyle = .none
     }
 }

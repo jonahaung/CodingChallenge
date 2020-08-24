@@ -1,10 +1,16 @@
-import UIKit
+//
+//  UITextField+Extensions.swift
+//  CodingChallenge
+//
+//  Created by Aung Ko Min on 24/8/20.
+//  Copyright © 2020 Aung Ko Min. All rights reserved.
+//
 
-// MARK: - Properties
+import UIKit
 
 extension UITextField {
     
-    func left(image: UIImage?, color: UIColor = .systemGray) {
+    func left(image: UIImage?, color: UIColor = .secondaryLabel) {
         if let image = image {
             leftViewMode = .always
             let imageView = UIImageView(frame: CGRect(x: 5, y: 0, width: 25, height: 25))
@@ -35,8 +41,6 @@ extension UITextField {
         }
     }
 }
-
-// MARK: - Methods
 
 public extension UITextField {
     

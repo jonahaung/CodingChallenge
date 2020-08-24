@@ -67,8 +67,8 @@ extension LoginViewController {
 
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: loginView, action: #selector(loginView.reset))
 
-        let signUp = UIBarButtonItem(title: "Sign Up", style: .plain, target: self, action: #selector(didTapRightBarButtonItem(_:)))
-        let resetPassword = UIBarButtonItem(title: "Reset Password", style: .plain, target: self, action: #selector(didTapRightBarButtonItem(_:)))
+        let signUp = UIBarButtonItem(title: "Sign Up", style: .plain, target: self, action: #selector(handleSignUp(_:)))
+        let resetPassword = UIBarButtonItem(title: "Reset Password", style: .plain, target: self, action: #selector(handleResetPassword(_:)))
         toolbarItems = [signUp, UIBarButtonItem.flexible, resetPassword]
         
         setupKeyboardObserver()
@@ -82,9 +82,13 @@ extension LoginViewController {
         navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
-    @objc private func didTapRightBarButtonItem(_ sender: UIBarButtonItem?) {
+    @objc private func handleSignUp(_ sender: UIBarButtonItem?) {
         let x = SignUpViewController()
         x.modalPresentationStyle = .fullScreen
         present(x, animated: true)
+    }
+    
+    @objc private func handleResetPassword(_ sender: UIBarButtonItem?) {
+        
     }
 }

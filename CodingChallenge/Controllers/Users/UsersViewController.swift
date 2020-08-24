@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class UsersViewController: UIViewController {
+final class UsersViewController: UIViewController, AlertPresenting {
 
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: true)
@@ -16,13 +16,18 @@ final class UsersViewController: UIViewController {
     }
     
     internal let tableView: UITableView = {
+        let imageView = UIImageView(image: UIImage(named: "welcome"))
+        imageView.contentMode = .scaleAspectFit
+        imageView.tintColor = UIColor.systemRed
+        $0.tableHeaderView = imageView
+        $0.bounces = true
         $0.estimatedRowHeight = 70
         $0.rowHeight = UITableView.automaticDimension
         $0.register(UsersTableViewCell.self, forCellReuseIdentifier: UsersTableViewCell.reuseIdentifier)
         return $0
     }(UITableView(frame: .zero, style: .insetGrouped))
     private let footerLabel: UILabel = {
-        $0.textColor = .systemOrange
+        $0.textColor = .secondaryLabel
         return $0
     }(UILabel())
     private lazy var manager = UsersManager()
@@ -40,26 +45,33 @@ final class UsersViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        let logout = UIBarButtonItem(title: "LogOut", style: .plain, target: self, action: #selector(didTapLogout))
+        let logout = UIBarButtonItem(title: "Log Out", style: .plain, target: self, action: #selector(didTapLogout))
         
         toolbarItems = [UIBarButtonItem(customView: footerLabel), UIBarButtonItem.flexible, logout]
         navigationController?.setToolbarHidden(false, animated: true)
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        navigationController?.setToolbarHidden(true, animated: true)
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        tableView.tableHeaderView?.frame.size = CGSize(width: tableView.contentSize.width, height: 120)
     }
+
 }
 
 extension UsersViewController {
     
     private func setup() {
-        title = "Users"
+        title = "Users List"
        
-        navigationItem.rightBarButtonItem = editButtonItem
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(didTapLeftBarButtonItem))
-        navigationItem.leftBarButtonItem?.isEnabled = false
+        let refreshButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(resetData))
+        refreshButtonItem.isEnabled = false
+        navigationItem.rightBarButtonItems = [editButtonItem, refreshButtonItem]
+        
+        let label = UILabel()
+        label.font = .preferredFont(forTextStyle: .subheadline)
+        label.text = AuthManager.shared.currentUser?.name
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: label)
     }
     
     private func setupManager() {
@@ -69,13 +81,16 @@ extension UsersViewController {
     }
     
     @objc private func didTapLogout() {
-        UIImpactFeedbackGenerator(style: .light).impactOccurred()
-        AuthManager.shared.signOut()
+        showAlert(title: "Are you sure you want to log out?", message: nil, buttonText: "Continue Log Out", from: nil) { x in
+            if x == true {
+                AuthManager.shared.signOut()
+            }
+        }
     }
     
-    @objc private func didTapLeftBarButtonItem() {
+    @objc private func resetData() {
         manager.reset()
-        navigationItem.leftBarButtonItem?.isEnabled = false
+        navigationItem.rightBarButtonItems?.last?.isEnabled = true
     }
 }
 
@@ -87,7 +102,7 @@ extension UsersViewController: UsersManagerDelegate {
         footerLabel.text = count.description
         footerLabel.sizeToFit()
         if count > 50 {
-            navigationItem.leftBarButtonItem?.isEnabled = true
+            navigationItem.rightBarButtonItems?.last?.isEnabled = true
         }
     }
     

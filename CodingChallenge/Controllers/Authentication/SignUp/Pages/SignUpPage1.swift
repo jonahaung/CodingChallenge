@@ -10,11 +10,6 @@ import UIKit
 
 final class SignUpPage1: SignUpPage {
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-    }
-    
     override func setup() {
         super.setup()
         

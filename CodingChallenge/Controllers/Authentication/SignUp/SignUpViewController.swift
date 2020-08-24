@@ -10,17 +10,13 @@ import UIKit
 
 class SignUpViewController: UINavigationController {
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
     }
     
     private func setup() {
-        
         setNavigationBarHidden(true, animated: false)
-        
-        let page1 = SignUpPage1()
-        viewControllers = [page1]
+        viewControllers = [SignUpPage1()]
     }
 }

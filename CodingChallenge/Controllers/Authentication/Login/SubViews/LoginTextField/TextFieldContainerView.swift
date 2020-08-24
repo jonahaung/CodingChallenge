@@ -8,23 +8,23 @@
 
 import UIKit
 
-final class LoginTextField: UIStackView {
+final class TextFieldContainerView: UIStackView {
     
     enum TextFieldType {
         case email, password, country, none
     }
     
-    weak var delegate: LoginTextFieldDelegate?
+    weak var delegate: TextFieldContainerViewDelegate?
     
     // Views
     let textField = PaddedTextField()
     
     private let label: ActionLabel = {
         $0.isHidden = true
-        $0.font = UIFont.preferredFont(forTextStyle: .caption2)
+        $0.font = UIFont.preferredFont(forTextStyle: .caption1)
         $0.textColor = UIColor.systemOrange
         $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.textAlignment = .center
+        $0.textAlignment = .justified 
         return $0
     }(ActionLabel())
     
@@ -44,7 +44,7 @@ final class LoginTextField: UIStackView {
     private let textFieldType: TextFieldType
     
     
-    private(set) var labelText: String? {
+    var labelText: String? {
         didSet {
             guard oldValue != labelText else { return }
             label.text = labelText
@@ -77,7 +77,7 @@ final class LoginTextField: UIStackView {
 }
 
 // Setup
-extension LoginTextField {
+extension TextFieldContainerView {
     private func setup() {
         translatesAutoresizingMaskIntoConstraints = false
         axis = .vertical
@@ -100,6 +100,7 @@ extension LoginTextField {
             setCurrentCountry()
             textField.rightView = rightButton
             textField.rightViewMode = .always
+            textField.left(image: UIImage(systemName: "chevron.down"))
         case .none:
             break
         }
@@ -113,12 +114,12 @@ extension LoginTextField {
 
 // TextField Delegate
 
-extension LoginTextField: UITextFieldDelegate {
+extension TextFieldContainerView: UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         labelText = nil
         self.textField.rightImageName = nil
-        delegate?.loginTextField(textFieldDidBeginEditing: self, type: textFieldType)
+        delegate?.textFieldContainerViewDelegate(textFieldDidBeginEditing: self, type: textFieldType)
         
     }
     
@@ -140,7 +141,7 @@ extension LoginTextField: UITextFieldDelegate {
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        delegate?.loginTextField(textFieldShouldReturn: self, type: textFieldType)
+        delegate?.textFieldContainerViewDelegate(textFieldShouldReturn: self, type: textFieldType)
         return true
     }
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
@@ -152,14 +153,22 @@ extension LoginTextField: UITextFieldDelegate {
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        self.textField.rightImageName = string + ".circle.fill"
+        self.textField.rightImageName = string.lowercased() + ".circle.fill"
+        
+        if textFieldType == .password {
+            if let text = textField.text, let textRange = Range(range, in: text) {
+                let updatedText = text.replacingCharacters(in: textRange, with: string)
+                self.textField.rightImageView.tintColor = updatedText.isValidPassword() ? UIColor.systemGreen : .systemRed
+            }
+        }
+        
         return string != " "
     }
 
 }
 
 // Methods
-extension LoginTextField {
+extension TextFieldContainerView {
     
     @objc private func didTapRightButton(_ sender: UIButton?) {
         let alert = UIAlertController(style: .actionSheet)

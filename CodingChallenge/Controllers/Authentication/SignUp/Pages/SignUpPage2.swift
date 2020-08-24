@@ -10,13 +10,13 @@ import UIKit
 
 final class SignUpPage2: SignUpPage {
     
-    let textField: LoginTextField = {
+    let textFieldContainerView: TextFieldContainerView = {
         $0.textField.textContentType = .name
         $0.textField.placeholder = "Enter your full name"
         $0.textField.autocapitalizationType = .words
         $0.textField.returnKeyType = .go
         return $0
-    }(LoginTextField(.none))
+    }(TextFieldContainerView(.none))
     
     override func setup() {
         super.setup()
@@ -26,64 +26,62 @@ final class SignUpPage2: SignUpPage {
         setButtonTitle(string: "Next")
         
         stackView.addArrangedSubview(titleLabel)
-        stackView.addArrangedSubview(textField)
+        stackView.addArrangedSubview(textFieldContainerView)
         stackView.addArrangedSubview(detailLabel)
         stackView.addArrangedSubview(button)
         
-        textField.textField.delegate = self
+        textFieldContainerView.textField.delegate = self
         
         button.isHidden = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        _ = textField.becomeFirstResponder()
+        _ = textFieldContainerView.becomeFirstResponder()
     }
     
+    
+    // Button Tapped
     override func didTapButton(_ sender: UIButton?) {
+        _ = textFieldContainerView.resignFirstResponder()
+        
+        guard let name = textFieldContainerView.textField.text?.trimmed, !name.isEmpty else {
+            self.textFieldContainerView.labelText = "Name shouldn't be empty"
+            self.textFieldContainerView.textField.isValid = false
+            return
+        }
         var loginUser = LoginUser()
-        loginUser.name = textField.textField.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        loginUser.name = name
         let page3 = SignUpPage3()
         page3.loginUser = loginUser
         navigationController?.pushViewController(page3, animated: true)
     }
-
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        _ = textField.resignFirstResponder()
+        super.touchesBegan(touches, with: event)
+        _ = textFieldContainerView.resignFirstResponder()
     }
 }
+
+// TextField Delegate
 
 extension SignUpPage2: UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        UIView.animate(withDuration: 0.25) {
-            self.button.alpha = 0.0
-            self.detailLabel.isHidden = false
-        } completion: { _ in
-            self.button.isHidden = true
-            self.button.alpha = 1
-        }
+        hideButton()
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        UIView.animate(withDuration: 0.3) {
-            self.detailLabel.isHidden = true
-        } completion: { _ in
-            UIView.animate(withDuration: 0.1) {
-                self.button.isHidden = false
-            }
-        }
+        showButton()
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        guard textField.hasText else { return false }
-        textField.resignFirstResponder()
         didTapButton(nil)
         return true
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        self.textField.textField.rightImageName = string + ".circle.fill"
+        self.textFieldContainerView.textField.rightImageName = string.lowercased() + ".circle.fill"
         return true
     }
 }
