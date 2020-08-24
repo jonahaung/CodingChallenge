@@ -13,7 +13,9 @@ final class UsersManager: NSObject {
     private var users = [User]()
     
     weak var delegate: UsersManagerDelegate?
+    
     private var isLoadingList = false
+    
     var tableView: UITableView? {
         return delegate?.tableView
     }
@@ -27,6 +29,7 @@ final class UsersManager: NSObject {
 // Fetch Users From API
 extension UsersManager {
     
+    // Get json datas from API
     private func getData(){
         isLoadingList = true
         guard let url = URL(string: "https://jsonplaceholder.typicode.com/users") else { return }
@@ -75,32 +78,31 @@ extension UsersManager: UITableViewDelegate, UITableViewDataSource {
         cell.configure(user)
         return cell
     }
-    
-    func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-        return "Total : \(users.count) users"
-    }
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let user = users[indexPath.row]
         delegate?.usersManagerDelegate(didSelectUser: user)
     }
     
+    // Swipe to delete
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-            return true
-        }
-
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-            switch editingStyle {
-            case .delete:
-                users.remove(at: indexPath.row)
-                tableView.deleteRows(at: [indexPath], with: .automatic)
-                delegate?.usersManagerDelegate(didReloadData: users)
-            default:
-                return
-            }
-        }
+        return true
+    }
     
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        switch editingStyle {
+        case .delete:
+            users.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+            delegate?.usersManagerDelegate(didReloadData: users)
+        default:
+            return
+        }
+    }
+    
+    
+    // Paginition
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if (scrollView.contentOffset.y + scrollView.frame.size.height) > scrollView.contentSize.height && !isLoadingList {
             UIImpactFeedbackGenerator(style: .light).impactOccurred()

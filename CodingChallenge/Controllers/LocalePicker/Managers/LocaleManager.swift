@@ -11,18 +11,17 @@ import Foundation
 
 struct LocaleManager {
     
-    
-    public enum GroupedByAlphabetsFetchResults {
+    enum GroupedByAlphabetsFetchResults {
         case success(response: [String: [LocaleInfo]])
         case error(error: (title: String?, message: String?))
     }
     
-    public enum FetchResults {
+    enum FetchResults {
         case success(response: [LocaleInfo])
         case error(error: (title: String?, message: String?))
     }
     
-    public static func getInfo(completionHandler: @escaping (FetchResults) -> ()) {
+    static func getInfo(completionHandler: @escaping (FetchResults) -> ()) {
         let bundle = Bundle(for: LocalePickerViewController.self)
         let path = "Countries.bundle/Data/CountryCodes"
         
@@ -51,7 +50,7 @@ struct LocaleManager {
         return completionHandler(FetchResults.error(error: error))
     }
     
-    public static func fetch(completionHandler: @escaping (GroupedByAlphabetsFetchResults) -> ()) {
+    static func fetch(completionHandler: @escaping (GroupedByAlphabetsFetchResults) -> ()) {
         LocaleManager.getInfo { result in
             switch result {
             case .success(let info):

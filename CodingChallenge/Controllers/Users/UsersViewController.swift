@@ -8,6 +8,8 @@
 
 import UIKit
 
+// Master View Controller
+
 final class UsersViewController: UIViewController, AlertPresenting {
 
     override func setEditing(_ editing: Bool, animated: Bool) {
@@ -45,14 +47,16 @@ final class UsersViewController: UIViewController, AlertPresenting {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        let logout = UIBarButtonItem(title: "Log Out", style: .plain, target: self, action: #selector(didTapLogout))
         
-        toolbarItems = [UIBarButtonItem(customView: footerLabel), UIBarButtonItem.flexible, logout]
+        let logoutButtonItem = UIBarButtonItem(title: "Log Out", style: .plain, target: self, action: #selector(didTapLogout))
+        
+        toolbarItems = [UIBarButtonItem(customView: footerLabel), UIBarButtonItem.flexible, logoutButtonItem]
         navigationController?.setToolbarHidden(false, animated: true)
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        // Layout Logo ImageView
         tableView.tableHeaderView?.frame.size = CGSize(width: tableView.contentSize.width, height: 120)
     }
 
@@ -67,11 +71,11 @@ extension UsersViewController {
         refreshButtonItem.isEnabled = false
         navigationItem.rightBarButtonItems = [editButtonItem, refreshButtonItem]
         
-        let label = UILabel()
-        label.font = .preferredFont(forTextStyle: .subheadline)
-        label.text = AuthManager.shared.currentUser?.name
+        let currentUserNameLabel = UILabel()
+        currentUserNameLabel.font = .preferredFont(forTextStyle: .subheadline)
+        currentUserNameLabel.text = AuthManager.shared.currentUser?.name
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: label)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: currentUserNameLabel)
     }
     
     private func setupManager() {
@@ -80,6 +84,7 @@ extension UsersViewController {
         tableView.delegate = manager
     }
     
+    // Logout
     @objc private func didTapLogout() {
         showAlert(title: "Are you sure you want to log out?", message: nil, buttonText: "Continue Log Out", from: nil) { x in
             if x == true {
@@ -88,6 +93,7 @@ extension UsersViewController {
         }
     }
     
+    // Reset to 10 user items
     @objc private func resetData() {
         manager.reset()
         navigationItem.rightBarButtonItems?.last?.isEnabled = true
@@ -106,7 +112,7 @@ extension UsersViewController: UsersManagerDelegate {
         }
     }
     
-    
+    // Got to details viewController
     func usersManagerDelegate(didSelectUser user: User) {
         let x = UserViewController()
         x.user = user

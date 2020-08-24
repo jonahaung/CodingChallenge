@@ -9,6 +9,7 @@
 import UIKit
 
 extension UIAlertController {
+    
     func addLocalePicker(selection: @escaping LocalePickerViewController.Selection) {
         var info: LocaleInfo?
         let selection: LocalePickerViewController.Selection = selection
@@ -115,6 +116,7 @@ final class LocalePickerViewController: UIViewController {
 }
 // Manage Data
 extension LocalePickerViewController {
+    
     func updateInfo() {
     
         LocaleManager.fetch { [unowned self] result in
